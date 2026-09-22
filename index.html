@@ -3,37 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Thiệp Cưới Online - Minh Quân & Khánh Linh | Minimalism Đỏ Đậm Luxury</title>
+  <title>Thiệp Cưới Online - Nguyễn Phi Hồng & Nàng Thơ | Minimalism Đỏ Đậm Story</title>
 
-  <!-- Google Fonts: Elegant Serifs, Calligraphy & Sans -->
+  <!-- Google Fonts: Sang trọng, Thư pháp & Hiện đại -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
-  <!-- FontAwesome 6 Icons -->
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-  <!-- Canvas Confetti Library -->
+  <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
     :root {
       --primary-red: #520f18;
-      --primary-dark: #32070e;
-      --primary-crimson: #6d1523;
-      --primary-bright: #941e2e;
+      --primary-dark: #30060d;
+      --primary-crimson: #6e1523;
+      --primary-bright: #961e2f;
       --accent-gold: #c5a059;
       --accent-gold-light: #f3e5c8;
       --accent-gold-dark: #916f2c;
       --paper-ivory: #faf7f2;
       --paper-cream: #f4ede4;
-      --paper-card: #ffffff;
       --text-dark: #221113;
       --text-muted: #6b5356;
       --border-subtle: #e5d9d1;
       --border-gold: rgba(197, 160, 89, 0.45);
-      --shadow-ambient: 0 12px 40px rgba(50, 7, 14, 0.08);
-      --shadow-elevated: 0 25px 60px rgba(50, 7, 14, 0.16);
       --font-serif: 'Playfair Display', Georgia, serif;
       --font-cormorant: 'Cormorant Garamond', Georgia, serif;
       --font-script: 'Great Vibes', 'Alex Brush', cursive;
@@ -45,76 +42,75 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #150305;
+      font-family: var(--font-sans);
+      color: var(--text-dark);
     }
 
     body {
-      background-color: #170406;
       background-image: 
-        radial-gradient(circle at 50% 0%, #3e0a12 0%, transparent 70%),
+        radial-gradient(circle at 50% 30%, #3e0a12 0%, #150305 85%),
         radial-gradient(rgba(197, 160, 89, 0.05) 1px, transparent 1px);
       background-size: 100% 100%, 28px 28px;
-      font-family: var(--font-sans);
-      color: var(--text-dark);
-      line-height: 1.6;
       display: flex;
       justify-content: center;
-      min-height: 100vh;
-      overflow-x: hidden;
+      align-items: center;
     }
 
     #petalsCanvas {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100vw;
       height: 100vh;
       pointer-events: none;
       z-index: 990;
     }
 
-    #envelopeStage {
+    #envelopeOverlay {
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: radial-gradient(circle at center, #35080f 0%, #150205 100%);
+      background: radial-gradient(circle at center, #35080f 0%, #140205 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       perspective: 1200px;
-      transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.3s;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
       padding: 20px;
     }
 
-    #envelopeStage.stage-opened {
+    #envelopeOverlay.opened {
       opacity: 0;
       pointer-events: none;
       visibility: hidden;
     }
 
-    .envelope-3d-wrapper {
+    .envelope-3d-box {
       position: relative;
       width: 100%;
-      max-width: 380px;
+      max-width: 370px;
       height: 480px;
       transform-style: preserve-3d;
-      transition: transform 0.8s ease;
     }
 
-    .envelope-back {
+    .envelope-bg {
       position: absolute;
       inset: 0;
       background: linear-gradient(145deg, #440c14 0%, #29050b 100%);
       border-radius: 16px;
-      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(197, 160, 89, 0.4);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(197, 160, 89, 0.4);
       overflow: hidden;
     }
 
-    .envelope-letter {
+    .envelope-paper-card {
       position: absolute;
       top: 25px;
       left: 20px;
@@ -122,11 +118,11 @@
       height: 420px;
       background: var(--paper-ivory);
       border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
       border: 1px solid var(--border-gold);
       padding: 30px 18px;
       text-align: center;
-      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 2;
       display: flex;
       flex-direction: column;
@@ -134,12 +130,12 @@
       justify-content: center;
     }
 
-    #envelopeStage.opening .envelope-letter {
-      transform: translateY(-240px) scale(1.05);
+    #envelopeOverlay.unfolding .envelope-paper-card {
+      transform: translateY(-220px) scale(1.04);
       z-index: 10;
     }
 
-    .letter-crest {
+    .card-crest {
       width: 60px;
       height: 60px;
       border: 1.5px solid var(--accent-gold);
@@ -148,15 +144,15 @@
       align-items: center;
       justify-content: center;
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 22px;
       color: var(--primary-red);
       margin-bottom: 12px;
       box-shadow: 0 0 15px rgba(197, 160, 89, 0.25);
     }
 
-    .letter-title {
+    .card-groom-title {
       font-family: var(--font-serif);
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--primary-red);
       text-transform: uppercase;
@@ -164,16 +160,16 @@
       margin-bottom: 4px;
     }
 
-    .letter-sub {
+    .card-bride-title {
       font-family: var(--font-script);
       font-size: 28px;
       color: var(--accent-gold);
-      margin-bottom: 12px;
+      margin-bottom: 15px;
     }
 
-    .letter-date {
+    .card-date-badge {
       font-family: var(--font-serif);
-      font-size: 14px;
+      font-size: 13px;
       letter-spacing: 3px;
       color: var(--primary-red);
       border-top: 1px solid var(--accent-gold);
@@ -192,15 +188,14 @@
       transform-origin: top center;
       transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 5;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
     }
 
-    #envelopeStage.opening .envelope-top-flap {
+    #envelopeOverlay.unfolding .envelope-top-flap {
       transform: rotateX(180deg);
       z-index: 1;
     }
 
-    .envelope-pocket {
+    .envelope-front-pocket {
       position: absolute;
       inset: 0;
       clip-path: polygon(0 45%, 50% 75%, 100% 45%, 100% 100%, 0 100%);
@@ -208,10 +203,9 @@
       z-index: 4;
       border-bottom-left-radius: 16px;
       border-bottom-right-radius: 16px;
-      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
-    .wax-seal {
+    .wax-seal-button {
       position: absolute;
       top: 190px;
       left: 50%;
@@ -219,7 +213,7 @@
       width: 85px;
       height: 85px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #a82739 0%, #57101b 70%, #2d040a 100%);
+      background: radial-gradient(circle at 35% 35%, #aa2739 0%, #57101b 70%, #2d040a 100%);
       border: 2px solid var(--accent-gold);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 25px rgba(197, 160, 89, 0.4);
       display: flex;
@@ -228,11 +222,11 @@
       justify-content: center;
       cursor: pointer;
       z-index: 6;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
-      animation: sealPulse 2.4s infinite;
+      transition: transform 0.3s ease, opacity 0.4s;
+      animation: pulseGlow 2.4s infinite;
     }
 
-    @keyframes sealPulse {
+    @keyframes pulseGlow {
       0%, 100% {
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 160, 89, 0.35);
         transform: translate(-50%, -50%) scale(1);
@@ -243,23 +237,23 @@
       }
     }
 
-    .wax-seal:hover {
+    .wax-seal-button:hover {
       transform: translate(-50%, -50%) scale(1.08) !important;
     }
 
-    #envelopeStage.opening .wax-seal {
+    #envelopeOverlay.unfolding .wax-seal-button {
       transform: translate(-50%, -50%) scale(0.6);
       opacity: 0;
       pointer-events: none;
     }
 
-    .wax-seal svg {
+    .wax-seal-button svg {
       width: 28px;
       height: 28px;
       fill: var(--accent-gold-light);
     }
 
-    .wax-seal span {
+    .wax-seal-button span {
       font-size: 9.5px;
       font-weight: 700;
       letter-spacing: 1.5px;
@@ -268,7 +262,7 @@
       margin-top: 3px;
     }
 
-    .envelope-invitation-hint {
+    .open-invitation-hint {
       margin-top: 35px;
       font-size: 13px;
       color: var(--accent-gold-light);
@@ -277,66 +271,108 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      animation: fadeInOut 2s infinite alternate;
     }
 
-    @keyframes fadeInOut {
-      from { opacity: 0.6; }
-      to { opacity: 1; }
-    }
-
-    .wedding-container {
+    .story-app {
       width: 100%;
-      max-width: 480px;
-      background-color: var(--paper-ivory);
-      box-shadow: 0 0 80px rgba(0, 0, 0, 0.75);
+      max-width: 440px;
+      height: 100vh;
+      max-height: 880px;
+      background: var(--paper-ivory);
       position: relative;
-      min-height: 100vh;
-      overflow-x: hidden;
+      box-shadow: 0 0 70px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
+      border-radius: 0;
     }
 
-    .floating-audio-widget {
-      position: fixed;
-      top: 18px;
-      right: calc(50% - 225px);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      background: rgba(50, 7, 14, 0.9);
-      backdrop-filter: blur(14px);
-      padding: 6px 14px 6px 8px;
-      border-radius: 35px;
-      border: 1px solid var(--accent-gold);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    @media (max-width: 480px) {
-      .floating-audio-widget {
-        right: 14px;
+    @media (min-width: 480px) {
+      .story-app {
+        height: 92vh;
+        border-radius: 28px;
+        border: 2px solid rgba(197, 160, 89, 0.4);
       }
     }
 
-    .vinyl-disc {
-      width: 32px;
-      height: 32px;
+    .story-progress-bar-wrap {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      z-index: 100;
+      display: flex;
+      gap: 6px;
+    }
+
+    .progress-segment {
+      flex: 1;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-gold);
+      border-radius: 3px;
+      transition: width 0.1s linear;
+    }
+
+    .story-top-controls {
+      position: absolute;
+      top: 26px;
+      left: 16px;
+      right: 16px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+    }
+
+    .badge-story-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(40, 5, 10, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border-gold);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .right-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ctrl-circle-btn {
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: radial-gradient(circle at center, #1b0307 22%, #3a0810 26%, #1b0307 60%, var(--accent-gold) 100%);
-      border: 1.5px solid var(--accent-gold);
+      background: rgba(40, 5, 10, 0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--accent-gold);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 11px;
-      animation: spinVinyl 3.8s linear infinite;
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
-    .vinyl-disc.paused {
-      animation-play-state: paused;
+    .ctrl-circle-btn.active-music {
+      animation: spinVinyl 3.8s linear infinite;
+      color: var(--accent-gold);
     }
 
     @keyframes spinVinyl {
@@ -344,1249 +380,592 @@
       to { transform: rotate(360deg); }
     }
 
-    .eq-wave {
+    .story-tap-zone {
+      position: absolute;
+      top: 70px;
+      bottom: 75px;
+      width: 45%;
+      z-index: 50;
+      cursor: pointer;
+    }
+    .tap-zone-left { left: 0; }
+    .tap-zone-right { right: 0; }
+
+    .stories-slider {
+      width: 100%;
+      height: 100%;
       display: flex;
-      align-items: flex-end;
-      gap: 2.5px;
-      height: 16px;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .eq-col {
-      width: 3px;
-      background: var(--accent-gold);
-      border-radius: 2px;
-      animation: eqBounce 1.2s ease-in-out infinite alternate;
-    }
-
-    .eq-col:nth-child(1) { height: 6px; animation-delay: 0.1s; }
-    .eq-col:nth-child(2) { height: 14px; animation-delay: 0.3s; }
-    .eq-col:nth-child(3) { height: 9px; animation-delay: 0.2s; }
-    .eq-col:nth-child(4) { height: 16px; animation-delay: 0.4s; }
-
-    .floating-audio-widget.paused .eq-col {
-      animation: none;
-      height: 3px;
-    }
-
-    .song-title-tag {
-      font-size: 11px;
-      font-weight: 600;
-      color: #fff;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-    }
-
-    .sticky-bottom-nav {
-      position: fixed;
-      bottom: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 995;
-      background: rgba(45, 6, 12, 0.94);
-      backdrop-filter: blur(14px);
-      padding: 9px 20px;
-      border-radius: 40px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--accent-gold);
-    }
-
-    .sticky-bottom-nav a {
-      color: rgba(255, 255, 255, 0.85);
-      text-decoration: none;
-      font-size: 11.5px;
-      font-weight: 500;
+    .story-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      gap: 3px;
-      transition: all 0.2s ease;
+      padding: 85px 24px 85px;
+      text-align: center;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
-    .sticky-bottom-nav a i {
-      font-size: 15px;
-      color: var(--accent-gold-light);
-    }
-
-    .sticky-bottom-nav a:hover,
-    .sticky-bottom-nav a.active {
-      color: #fff;
-      transform: translateY(-2px);
-    }
-
-    .sticky-bottom-nav a:hover i {
-      color: var(--accent-gold);
-    }
-
-    .shimmer-gold {
+    .gold-shimmer {
       position: relative;
       overflow: hidden;
     }
-
-    .shimmer-gold::after {
+    .gold-shimmer::after {
       content: "";
       position: absolute;
       top: -50%;
       left: -60%;
       width: 40%;
       height: 200%;
-      background: linear-gradient(
-        60deg,
-        rgba(255, 255, 255, 0) 20%,
-        rgba(255, 235, 190, 0.4) 50%,
-        rgba(255, 255, 255, 0) 80%
-      );
+      background: linear-gradient(60deg, transparent 20%, rgba(255, 235, 190, 0.35) 50%, transparent 80%);
       transform: rotate(25deg);
       animation: goldSweep 4.5s infinite;
       pointer-events: none;
     }
-
     @keyframes goldSweep {
       0% { left: -70%; }
       30%, 100% { left: 160%; }
     }
 
-    .reveal-item {
-      opacity: 0;
-      transform: translateY(35px);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal-item.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal-scale {
-      opacity: 0;
-      transform: scale(0.92);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal-scale.active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .delay-1 { transition-delay: 0.15s; }
-    .delay-2 { transition-delay: 0.3s; }
-    .delay-3 { transition-delay: 0.45s; }
-
-    .tilt-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      transform-style: preserve-3d;
-    }
-
-    section {
-      padding: 60px 24px;
-      position: relative;
-    }
-
-    .sec-header {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .sec-script {
-      font-family: var(--font-script);
-      font-size: 38px;
-      color: var(--accent-gold);
-      line-height: 1;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .sec-heading {
-      font-family: var(--font-serif);
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--primary-red);
-    }
-
-    .sec-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin: 12px auto 0;
-      width: 140px;
-    }
-
-    .sec-divider::before,
-    .sec-divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--accent-gold));
-    }
-
-    .sec-divider::after {
-      background: linear-gradient(to left, transparent, var(--accent-gold));
-    }
-
-    .sec-divider svg {
-      width: 14px;
-      height: 14px;
-      fill: var(--accent-gold);
-    }
-
-    .hero-view {
-      background: linear-gradient(180deg, #30060d 0%, #500f18 40%, #681521 80%, #500f18 100%);
+    .slide-cover {
+      background: linear-gradient(180deg, #30060d 0%, #500f18 45%, #681521 80%, #500f18 100%);
       color: #fff;
-      padding: 85px 24px 60px;
-      text-align: center;
-      position: relative;
-      border-bottom: 4px solid var(--accent-gold);
-      overflow: hidden;
     }
 
-    .hero-arch-frame {
+    .cover-arch {
       border: 1px solid var(--border-gold);
       border-radius: 160px 160px 14px 14px;
-      padding: 45px 20px 40px;
+      padding: 40px 18px 35px;
+      width: 100%;
+      background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 75%);
+      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.35);
       position: relative;
-      background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.07) 0%, transparent 75%);
-      box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.35);
     }
 
-    .hero-arch-frame::before {
+    .cover-arch::before {
       content: "";
       position: absolute;
-      inset: 6px;
+      inset: 5px;
       border: 1px dashed rgba(230, 211, 168, 0.35);
-      border-radius: 154px 154px 10px 10px;
+      border-radius: 155px 155px 10px 10px;
       pointer-events: none;
     }
 
-    .chuhy-icon {
-      width: 44px;
-      height: 44px;
-      margin: 0 auto 16px;
+    .chuhy-svg {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 12px;
       fill: var(--accent-gold-light);
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
     }
 
-    .hero-tagline {
-      font-size: 11px;
+    .cover-tagline {
+      font-size: 10.5px;
       letter-spacing: 5px;
       text-transform: uppercase;
       color: var(--accent-gold-light);
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
-    .monogram-badge {
-      width: 82px;
-      height: 82px;
-      margin: 0 auto 22px;
+    .cover-monogram {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 18px;
       border-radius: 50%;
       border: 2px solid var(--accent-gold);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-serif);
-      font-size: 26px;
+      font-size: 24px;
       color: var(--accent-gold-light);
       box-shadow: 0 0 25px rgba(197, 160, 89, 0.4);
       position: relative;
     }
 
-    .monogram-badge::after {
-      content: "";
-      position: absolute;
-      inset: 3px;
-      border: 1px dashed rgba(230, 211, 168, 0.5);
-      border-radius: 50%;
-    }
-
-    .hero-names-text {
+    .cover-names {
       font-family: var(--font-serif);
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
-      letter-spacing: 2.5px;
+      letter-spacing: 2px;
       color: #fff;
       text-transform: uppercase;
       line-height: 1.25;
     }
 
-    .hero-ampersand-sign {
+    .cover-amp {
       font-family: var(--font-script);
-      font-size: 44px;
+      font-size: 38px;
       color: var(--accent-gold);
       display: block;
       margin: -6px 0;
     }
 
-    .hero-date-pill {
+    .cover-date-ribbon {
       display: inline-block;
-      margin: 25px auto 10px;
-      padding: 9px 28px;
+      margin: 20px auto 8px;
+      padding: 8px 22px;
       border-top: 1px solid var(--accent-gold);
       border-bottom: 1px solid var(--accent-gold);
       font-family: var(--font-serif);
-      font-size: 17px;
-      letter-spacing: 4px;
+      font-size: 15px;
+      letter-spacing: 3px;
       color: var(--accent-gold-light);
     }
 
-    .hero-lunar-txt {
-      font-size: 12px;
+    .cover-lunar {
+      font-size: 11.5px;
       color: rgba(255, 255, 255, 0.85);
       font-style: italic;
-      margin-top: 6px;
     }
 
-    .scroll-down-hint {
-      margin-top: 35px;
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent-gold-light);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      animation: floatHint 2.2s ease-in-out infinite;
+    .slide-letter {
+      background: var(--paper-ivory);
     }
 
-    @keyframes floatHint {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(7px); }
-    }
-
-    .letter-area {
-      background-color: var(--paper-ivory);
-    }
-
-    .letter-paper-wrap {
-      background: #ffffff;
+    .letter-box-inner {
+      background: #fff;
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 40px 24px;
-      box-shadow: var(--shadow-ambient);
+      border-radius: 18px;
+      padding: 35px 22px;
+      box-shadow: 0 10px 30px rgba(50, 7, 14, 0.08);
       position: relative;
-      text-align: center;
+      width: 100%;
     }
 
-    .letter-paper-wrap::before {
+    .letter-box-inner::before {
       content: "“";
       font-family: var(--font-serif);
-      font-size: 80px;
+      font-size: 75px;
       color: var(--accent-gold-light);
       position: absolute;
-      top: -20px;
-      left: 20px;
+      top: -18px;
+      left: 18px;
       line-height: 1;
       opacity: 0.6;
     }
 
-    .letter-content-text {
-      font-family: var(--font-cormorant);
+    .slide-heading-script {
+      font-family: var(--font-script);
+      font-size: 34px;
+      color: var(--accent-gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .slide-heading-serif {
+      font-family: var(--font-serif);
       font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--primary-red);
+      margin-bottom: 18px;
+    }
+
+    .letter-quote-content {
+      font-family: var(--font-cormorant);
+      font-size: 17px;
       line-height: 1.8;
       color: var(--text-dark);
       font-style: italic;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
     }
 
-    .letter-signature-text {
+    .letter-sig-author {
       font-family: var(--font-script);
-      font-size: 34px;
+      font-size: 32px;
       color: var(--primary-red);
     }
 
-    .botanical-sway-svg {
-      width: 70px;
-      height: 70px;
-      margin: 15px auto 0;
-      animation: gentleSway 4s ease-in-out infinite alternate;
-      transform-origin: bottom center;
+    .slide-couple {
+      background: var(--paper-cream);
     }
 
-    @keyframes gentleSway {
-      0% { transform: rotate(-5deg); }
-      100% { transform: rotate(5deg); }
-    }
-
-    .couple-area {
-      background-color: var(--paper-cream);
-    }
-
-    .couple-stack {
+    .couple-card-flex {
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 16px;
+      width: 100%;
     }
 
-    .profile-card {
+    .person-mini-card {
       background: #fff;
-      border-radius: 20px;
-      padding: 35px 22px;
-      text-align: center;
-      box-shadow: var(--shadow-ambient);
+      border-radius: 16px;
+      padding: 20px 16px;
       border: 1px solid var(--border-subtle);
+      box-shadow: 0 4px 15px rgba(50, 7, 14, 0.05);
       position: relative;
     }
 
-    .profile-avatar-arch {
-      width: 130px;
-      height: 155px;
-      margin: 0 auto 20px;
-      border-radius: 70px 70px 10px 10px;
+    .groom-avatar-arch {
+      width: 75px;
+      height: 90px;
+      margin: 0 auto 10px;
+      border-radius: 40px 40px 8px 8px;
       background: linear-gradient(145deg, #f7efe7 0%, #ebe1d7 100%);
       border: 2px solid var(--accent-gold);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: var(--primary-red);
-      box-shadow: 0 8px 20px rgba(80, 15, 24, 0.12);
-      position: relative;
+      font-size: 36px;
     }
 
-    .profile-avatar-arch i {
-      font-size: 52px;
-      margin-bottom: 6px;
-    }
-
-    .profile-avatar-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent-gold-dark);
-    }
-
-    .profile-role-title {
+    .person-label-tag {
       font-family: var(--font-script);
-      font-size: 30px;
+      font-size: 24px;
       color: var(--accent-gold);
       line-height: 1;
     }
 
-    .profile-fullname {
+    .person-real-name {
       font-family: var(--font-serif);
-      font-size: 21px;
-      font-weight: 700;
-      color: var(--primary-red);
-      letter-spacing: 1.5px;
-      margin: 6px 0 14px;
-      text-transform: uppercase;
-    }
-
-    .profile-lineage {
-      font-size: 13px;
-      color: var(--text-muted);
-      border-top: 1px dashed var(--border-subtle);
-      padding-top: 14px;
-      margin-top: 12px;
-      line-height: 1.8;
-    }
-
-    .profile-socials {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .social-round-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: var(--paper-ivory);
-      border: 1px solid var(--border-gold);
-      color: var(--primary-red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 14px;
-      transition: all 0.25s ease;
-    }
-
-    .social-round-btn:hover {
-      background: var(--primary-red);
-      color: #fff;
-      transform: translateY(-2px);
-    }
-
-    .countdown-area {
-      background: linear-gradient(135deg, #30060d 0%, #500f18 100%);
-      color: #fff;
-      text-align: center;
-    }
-
-    .countdown-area .sec-heading {
-      color: #fff;
-    }
-
-    .countdown-area .sec-script {
-      color: var(--accent-gold-light);
-    }
-
-    .timer-flex-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 28px;
-    }
-
-    .timer-item-box {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(197, 160, 89, 0.45);
-      border-radius: 12px;
-      padding: 16px 6px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-    }
-
-    .timer-big-num {
-      font-family: var(--font-serif);
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--accent-gold-light);
-      display: block;
-      line-height: 1.1;
-    }
-
-    .timer-caption-txt {
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.75);
-      margin-top: 4px;
-      display: block;
-    }
-
-    .blessing-cannon-box {
-      margin-top: 30px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
-      border: 1px solid rgba(197, 160, 89, 0.3);
-    }
-
-    .blessing-count-txt {
-      font-size: 13px;
-      color: var(--accent-gold-light);
-      margin-bottom: 12px;
-    }
-
-    .blessing-count-txt strong {
       font-size: 18px;
-      color: #fff;
-      font-family: var(--font-serif);
-    }
-
-    .btn-fireworks-cannon {
-      padding: 12px 28px;
-      background: linear-gradient(135deg, var(--accent-gold) 0%, #9e7b34 100%);
-      color: #2b060d;
-      border: none;
-      border-radius: 35px;
-      font-size: 13px;
       font-weight: 700;
+      color: var(--primary-red);
       letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.25s ease;
-    }
-
-    .btn-fireworks-cannon:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 30px rgba(197, 160, 89, 0.6);
-    }
-
-    .events-area {
-      background-color: var(--paper-ivory);
-    }
-
-    .event-card-item {
-      background: #fff;
-      border: 1px solid var(--border-subtle);
-      border-radius: 18px;
-      padding: 32px 22px;
-      margin-bottom: 28px;
-      box-shadow: var(--shadow-ambient);
-      position: relative;
-      border-top: 5px solid var(--primary-red);
-    }
-
-    .event-badge-pill {
-      display: inline-block;
-      background: var(--paper-cream);
-      color: var(--primary-red);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-      letter-spacing: 1.5px;
+      margin: 2px 0 6px;
       text-transform: uppercase;
     }
 
-    .event-card-title {
-      font-family: var(--font-serif);
-      font-size: 21px;
-      color: var(--primary-red);
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .event-info-line {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 10px;
-      font-size: 14px;
-      color: var(--text-dark);
-    }
-
-    .event-info-line i {
-      color: var(--accent-gold);
-      font-size: 16px;
-      margin-top: 3px;
-      width: 20px;
-      text-align: center;
-    }
-
-    .event-address-quote {
-      margin: 14px 0 20px;
-      padding: 12px 14px;
-      background: var(--paper-cream);
-      border-radius: 10px;
-      font-size: 13px;
+    .person-sub-info {
+      font-size: 12px;
       color: var(--text-muted);
       line-height: 1.6;
     }
 
-    .event-btn-row {
-      display: flex;
-      gap: 10px;
+    .btn-quick-call {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: var(--paper-ivory);
+      border: 1px solid var(--border-gold);
+      color: var(--primary-red);
+      text-decoration: none;
+      font-size: 11.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-quick-call:hover {
+      background: var(--primary-red);
+      color: #fff;
     }
 
-    .btn-act {
+    .bride-loading-box {
+      border: 2px dashed var(--accent-gold);
+      background: #faf6f0;
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+
+    .bride-mystery-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #f0e6da;
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-gold-dark);
+      font-size: 26px;
+    }
+
+    .slide-events {
+      background: var(--paper-ivory);
+    }
+
+    .event-item-block {
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px 18px;
+      border: 1px solid var(--border-subtle);
+      border-top: 4px solid var(--primary-red);
+      box-shadow: 0 8px 25px rgba(50, 7, 14, 0.06);
+      width: 100%;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .event-badge-label {
+      display: inline-block;
+      background: var(--paper-cream);
+      color: var(--primary-red);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .event-block-heading {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--primary-red);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .event-line-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+    }
+
+    .event-line-row i {
+      color: var(--accent-gold);
+      margin-top: 3px;
+      width: 16px;
+      text-align: center;
+    }
+
+    .event-btn-pair {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .btn-card-action {
       flex: 1;
-      padding: 11px 12px;
-      border-radius: 10px;
-      font-size: 12px;
+      padding: 9px 8px;
+      border-radius: 8px;
+      font-size: 11.5px;
       font-weight: 600;
       text-align: center;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       cursor: pointer;
       border: none;
-      transition: all 0.25s ease;
+      transition: all 0.2s;
     }
 
-    .btn-act-red {
+    .btn-act-fill {
       background: var(--primary-red);
       color: #fff;
-      box-shadow: 0 4px 12px rgba(80, 15, 24, 0.2);
     }
 
-    .btn-act-red:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-    }
-
-    .btn-act-border {
+    .btn-act-line {
       background: transparent;
       border: 1px solid var(--accent-gold);
       color: var(--primary-red);
     }
 
-    .btn-act-border:hover {
+    .slide-rsvp {
       background: var(--paper-cream);
-      transform: translateY(-2px);
     }
 
-    .timeline-area {
-      background-color: var(--paper-cream);
+    .rsvp-card-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px 18px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 30px rgba(50, 7, 14, 0.08);
+      width: 100%;
     }
 
-    .timeline-road-wrap {
-      position: relative;
-      padding-left: 32px;
-      margin-top: 25px;
+    .form-group-item {
+      margin-bottom: 12px;
+      text-align: left;
     }
 
-    .timeline-road-wrap::before {
-      content: "";
-      position: absolute;
-      left: 12px;
-      top: 10px;
-      bottom: 10px;
-      width: 3px;
-      background: linear-gradient(180deg, var(--accent-gold) 0%, var(--primary-red) 70%, var(--primary-bright) 100%);
-      box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
-    }
-
-    .timeline-node {
-      position: relative;
-      margin-bottom: 26px;
-    }
-
-    .timeline-node-pin {
-      position: absolute;
-      left: -32px;
-      top: 3px;
-      width: 27px;
-      height: 27px;
-      border-radius: 50%;
-      background: var(--primary-red);
-      border: 3px solid #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 11px;
-      box-shadow: 0 0 0 2px var(--accent-gold);
-    }
-
-    .timeline-node-time {
-      font-family: var(--font-serif);
-      font-weight: 700;
-      font-size: 16px;
+    .form-group-item label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
       color: var(--primary-red);
       margin-bottom: 4px;
     }
 
-    .timeline-node-card {
-      font-size: 13px;
-      color: var(--text-dark);
-      background: #fff;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-    }
-
-    .story-area {
-      background-color: var(--paper-ivory);
-    }
-
-    .story-item-box {
-      background: #fff;
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 20px;
-      border-left: 4px solid var(--accent-gold);
-      box-shadow: var(--shadow-ambient);
-      transition: transform 0.3s ease;
-    }
-
-    .story-item-box:hover {
-      transform: translateX(4px);
-    }
-
-    .story-item-date {
-      font-family: var(--font-serif);
-      font-size: 12px;
-      letter-spacing: 2px;
-      color: var(--accent-gold-dark);
-      font-weight: 700;
-    }
-
-    .story-item-name {
-      font-family: var(--font-serif);
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--primary-red);
-      margin: 4px 0 8px;
-    }
-
-    .story-item-body {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    .gallery-area {
-      background-color: var(--paper-cream);
-      text-align: center;
-    }
-
-    .polaroid-grid-layout {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 24px;
-    }
-
-    .polaroid-aesthetic-card {
-      background: #fff;
-      padding: 12px 12px 18px;
-      border-radius: 10px;
-      box-shadow: var(--shadow-ambient);
-      border: 1px solid var(--border-subtle);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.3s ease;
-    }
-
-    .polaroid-aesthetic-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .polaroid-paper-box {
+    .input-stylish-field {
       width: 100%;
-      aspect-ratio: 1/1;
-      background: linear-gradient(135deg, #fbf7f4 0%, #ede3d8 100%);
-      border: 1px dashed var(--accent-gold);
-      border-radius: 6px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary-red);
-      padding: 12px;
-    }
-
-    .polaroid-paper-box i {
-      font-size: 30px;
-      color: var(--accent-gold);
-      margin-bottom: 8px;
-    }
-
-    .polaroid-quote-text {
-      font-family: var(--font-cormorant);
-      font-style: italic;
-      font-size: 13px;
-      color: var(--primary-red);
-      line-height: 1.35;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    .polaroid-caption-tag {
-      margin-top: 10px;
-      font-family: var(--font-script);
-      font-size: 20px;
-      color: var(--primary-red);
-    }
-
-    .rsvp-area {
-      background-color: var(--paper-ivory);
-    }
-
-    .rsvp-form-container {
-      background: #fff;
-      border-radius: 18px;
-      padding: 32px 22px;
-      box-shadow: var(--shadow-elevated);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .form-row-item {
-      margin-bottom: 18px;
-    }
-
-    .form-row-item label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--primary-red);
-      margin-bottom: 6px;
-    }
-
-    .input-field-custom {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
       border: 1px solid var(--border-subtle);
       font-family: var(--font-sans);
-      font-size: 13px;
+      font-size: 12.5px;
       background: var(--paper-ivory);
       outline: none;
-      transition: all 0.25s ease;
     }
 
-    .input-field-custom:focus {
+    .input-stylish-field:focus {
       border-color: var(--primary-red);
       background: #fff;
-      box-shadow: 0 0 0 3px rgba(80, 15, 24, 0.08);
     }
 
-    .radio-choice-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .radio-choice-option {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--text-dark);
-      cursor: pointer;
-      padding: 8px 12px;
-      background: var(--paper-cream);
-      border-radius: 8px;
-      transition: background 0.2s;
-    }
-
-    .radio-choice-option:hover {
-      background: #eae2d6;
-    }
-
-    .radio-choice-option input[type="radio"] {
-      accent-color: var(--primary-red);
-      width: 16px;
-      height: 16px;
-    }
-
-    .btn-submit-wedding-rsvp {
+    .btn-submit-guest {
       width: 100%;
-      padding: 15px;
-      border-radius: 35px;
+      padding: 13px;
+      border-radius: 25px;
       background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-dark) 100%);
       color: #fff;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 1.5px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       border: none;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(80, 15, 24, 0.35);
-      transition: all 0.3s ease;
-      margin-top: 10px;
-    }
-
-    .btn-submit-wedding-rsvp:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(80, 15, 24, 0.45);
-    }
-
-    .wishes-area {
-      background-color: var(--paper-cream);
-    }
-
-    .stamp-selector-box {
-      margin-bottom: 15px;
-    }
-
-    .stamp-selector-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--primary-red);
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .stamps-flex {
-      display: flex;
-      gap: 10px;
-      justify-content: space-between;
-    }
-
-    .stamp-pill {
-      flex: 1;
-      padding: 8px 4px;
-      border-radius: 8px;
-      border: 1.5px dashed var(--border-gold);
-      background: var(--paper-ivory);
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .stamp-pill.selected {
-      border-color: var(--primary-red);
-      background: #fbeee8;
-      transform: scale(1.04);
-      box-shadow: 0 4px 10px rgba(80, 15, 24, 0.15);
-    }
-
-    .stamp-pill-icon {
-      font-size: 18px;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .stamp-pill-name {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--primary-red);
-    }
-
-    .wishes-stream-container {
-      max-height: 290px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 25px;
-      padding-right: 4px;
-    }
-
-    .wishes-stream-container::-webkit-scrollbar {
-      width: 4px;
-    }
-    .wishes-stream-container::-webkit-scrollbar-thumb {
-      background: var(--accent-gold);
-      border-radius: 4px;
-    }
-
-    .wish-entry-card {
-      background: #fff;
-      padding: 16px 18px;
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
-      position: relative;
-    }
-
-    .wish-entry-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .wish-entry-author {
-      font-weight: 700;
-      font-size: 13.5px;
-      color: var(--primary-red);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .wish-entry-time {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .wish-entry-body {
-      font-size: 13px;
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
-
-    .wish-heart-trigger {
-      position: absolute;
-      bottom: 12px;
-      right: 14px;
-      background: transparent;
-      border: none;
-      color: #e04f67;
-      cursor: pointer;
-      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(80, 15, 24, 0.3);
+      margin-top: 8px;
       transition: transform 0.2s;
     }
 
-    .wish-heart-trigger:hover {
-      transform: scale(1.25);
+    .slide-gift {
+      background: var(--paper-ivory);
     }
 
-    .gift-area {
-      background-color: var(--paper-ivory);
+    .gift-card-wrap {
+      background: #fff;
+      border-radius: 18px;
+      padding: 26px 20px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 12px 35px rgba(50, 7, 14, 0.1);
+      width: 100%;
       text-align: center;
     }
 
-    .pill-tabs-bar {
-      display: flex;
-      border-radius: 35px;
-      background: var(--paper-cream);
-      padding: 4px;
-      margin-bottom: 28px;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .pill-tab-item {
-      flex: 1;
-      padding: 11px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: 600;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .pill-tab-item.active {
-      background: var(--primary-red);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(80, 15, 24, 0.25);
-    }
-
-    .bank-envelope-panel {
-      display: none;
-      background: #fff;
-      border-radius: 18px;
-      padding: 30px 22px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-ambient);
-    }
-
-    .bank-envelope-panel.active {
-      display: block;
-      animation: popInCard 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes popInCard {
-      from { opacity: 0; transform: translateY(12px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .vietqr-box {
-      width: 185px;
-      height: 185px;
-      margin: 0 auto 20px;
-      padding: 12px;
+    .qr-image-container {
+      width: 175px;
+      height: 175px;
+      margin: 0 auto 16px;
+      padding: 10px;
       background: #fff;
       border: 2px dashed var(--accent-gold);
-      border-radius: 14px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     }
 
-    .vietqr-box svg {
+    .qr-image-container img {
       width: 100%;
       height: 100%;
+      object-fit: contain;
     }
 
-    .bank-data-row {
-      margin-bottom: 8px;
-      font-size: 13.5px;
+    .bank-info-line {
+      margin-bottom: 6px;
+      font-size: 13px;
     }
 
-    .bank-data-label {
+    .bank-info-line span {
       color: var(--text-muted);
     }
 
-    .bank-data-value {
-      font-weight: 700;
+    .bank-info-line strong {
       color: var(--primary-red);
     }
 
     .btn-copy-stk-pill {
-      margin-top: 16px;
+      margin-top: 14px;
       background: var(--paper-cream);
       color: var(--primary-red);
       border: 1px solid var(--accent-gold);
-      padding: 9px 22px;
-      border-radius: 25px;
-      font-size: 12.5px;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.25s ease;
+      gap: 6px;
+      transition: all 0.2s;
     }
 
     .btn-copy-stk-pill:hover {
       background: var(--primary-red);
       color: #fff;
+    }
+
+    .story-bottom-dock {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(45, 6, 12, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 10px;
+      z-index: 100;
+    }
+
+    .dock-tab-btn {
+      color: rgba(255, 255, 255, 0.75);
+      background: transparent;
+      border: none;
+      font-size: 10.5px;
+      font-weight: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dock-tab-btn i {
+      font-size: 16px;
+      color: var(--accent-gold-light);
+    }
+
+    .dock-tab-btn.active,
+    .dock-tab-btn:hover {
+      color: #fff;
       transform: translateY(-2px);
     }
 
-    .thankyou-area {
-      background: linear-gradient(180deg, #500f18 0%, #30060d 100%);
-      color: #fff;
-      text-align: center;
-      padding: 65px 24px 100px;
-      position: relative;
+    .dock-tab-btn.active i {
+      color: var(--accent-gold);
     }
 
-    .thankyou-script-big {
-      font-family: var(--font-script);
-      font-size: 54px;
-      color: var(--accent-gold-light);
-      margin-bottom: 8px;
-      line-height: 1.1;
-    }
-
-    .thankyou-verse {
-      font-family: var(--font-cormorant);
-      font-size: 17px;
-      line-height: 1.8;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 24px;
-      font-style: italic;
-    }
-
-    .footer-stamp-names {
-      font-family: var(--font-serif);
-      font-size: 16px;
-      letter-spacing: 3px;
-      color: var(--accent-gold-light);
-      margin-bottom: 25px;
-      text-transform: uppercase;
-    }
-
-    .footer-copy-note {
-      font-size: 11px;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.45);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 22px;
-    }
-
-    .toast-pill-notification {
+    .toast-alert {
       position: fixed;
       top: 25px;
       left: 50%;
       transform: translateX(-50%) translateY(-100px);
-      background: rgba(45, 6, 12, 0.96);
+      background: rgba(40, 5, 10, 0.96);
       color: #fff;
       border: 1px solid var(--accent-gold);
-      padding: 12px 24px;
-      border-radius: 35px;
-      font-size: 13px;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 12.5px;
       font-weight: 500;
       z-index: 999999;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
       display: flex;
       align-items: center;
-      gap: 10px;
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+      gap: 8px;
+      transition: transform 0.4s ease, opacity 0.4s;
       opacity: 0;
       pointer-events: none;
     }
 
-    .toast-pill-notification.show {
+    .toast-alert.show {
       transform: translateX(-50%) translateY(0);
       opacity: 1;
-    }
-
-    .floating-reaction-heart {
-      position: fixed;
-      pointer-events: none;
-      font-size: 22px;
-      z-index: 100000;
-      animation: flyUpAndFade 1.6s ease-out forwards;
-    }
-
-    @keyframes flyUpAndFade {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1) rotate(0deg);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-160px) scale(1.6) rotate(25deg);
-      }
     }
   </style>
 </head>
@@ -1594,27 +973,24 @@
 
   <canvas id="petalsCanvas"></canvas>
 
-  <div id="envelopeStage">
-    <div class="envelope-3d-wrapper">
-      <div class="envelope-back"></div>
-      
-      <div class="envelope-letter">
-        <div class="letter-crest">Q & L</div>
-        <div class="letter-title">Thiệp Báo Hỷ</div>
-        <div class="letter-sub">Save The Date</div>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px; font-family: var(--font-cormorant); font-style: italic;">
-          Trân trọng kính mời quý khách đến dự lễ cưới của
+  <div id="envelopeOverlay">
+    <div class="envelope-3d-box">
+      <div class="envelope-bg"></div>
+
+      <div class="envelope-paper-card">
+        <div class="card-crest">H</div>
+        <div class="card-groom-title">Nguyễn Phi Hồng</div>
+        <div class="card-bride-title">& Nàng Thơ Tương Lai</div>
+        <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px; font-family: var(--font-cormorant); font-style: italic;">
+          Trân trọng kính mời quý khách đến dự tiệc cưới của
         </p>
-        <div style="font-family: var(--font-serif); font-weight: 700; color: var(--primary-red); font-size: 16px; letter-spacing: 1px; margin-bottom: 15px;">
-          MINH QUÂN & KHÁNH LINH
-        </div>
-        <div class="letter-date">24 . 10 . 2026</div>
+        <div class="card-date-badge">25h - Ngày 32/13/3000</div>
       </div>
 
       <div class="envelope-top-flap"></div>
-      <div class="envelope-pocket"></div>
+      <div class="envelope-front-pocket"></div>
 
-      <div class="wax-seal" id="waxSealTrigger" title="Chạm để mở thiệp cưới">
+      <div class="wax-seal-button" id="waxSealBtn" title="Chạm để mở thiệp">
         <svg viewBox="0 0 24 24">
           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
         </svg>
@@ -1622,752 +998,459 @@
       </div>
     </div>
 
-    <div class="envelope-invitation-hint">
+    <div class="open-invitation-hint">
       <i class="fas fa-volume-up" style="color: var(--accent-gold);"></i>
-      Chạm vào dấu sáp để mở thiệp & lắng nghe giai điệu ngọt ngào
+      Chạm vào dấu sáp để mở thiệp & hòa cùng giai điệu lãng mạn
     </div>
   </div>
 
-  <div class="floating-audio-widget" id="audioToggleWidget" title="Bật/Tắt Nhạc Cưới">
-    <div class="vinyl-disc" id="vinylIcon">
-      <i class="fas fa-music"></i>
+  <main class="story-app">
+
+    <div class="story-progress-bar-wrap" id="progressBarWrap">
+      <div class="progress-segment"><div class="progress-fill"></div></div>
+      <div class="progress-segment"><div class="progress-fill"></div></div>
+      <div class="progress-segment"><div class="progress-fill"></div></div>
+      <div class="progress-segment"><div class="progress-fill"></div></div>
+      <div class="progress-segment"><div class="progress-fill"></div></div>
+      <div class="progress-segment"><div class="progress-fill"></div></div>
     </div>
-    <div class="eq-wave" id="eqBarsGroup">
-      <div class="eq-col"></div>
-      <div class="eq-col"></div>
-      <div class="eq-col"></div>
-      <div class="eq-col"></div>
+
+    <div class="story-top-controls">
+      <div class="badge-story-info">
+        <i class="fas fa-heart" style="color: var(--accent-gold);"></i>
+        <span>Phi Hồng's Wedding</span>
+      </div>
+
+      <div class="right-tools">
+        <button class="ctrl-circle-btn" id="autoReelToggleBtn" title="Tự động phát Story">
+          <i class="fas fa-play" id="autoReelIcon"></i>
+        </button>
+
+        <button class="ctrl-circle-btn active-music" id="musicToggleBtn" title="Bật/Tắt Nhạc Cưới">
+          <i class="fas fa-music"></i>
+        </button>
+      </div>
     </div>
-    <span class="song-title-tag" id="currentSongLabel">Until I Found You</span>
-  </div>
 
-  <nav class="sticky-bottom-nav">
-    <a href="#eventsArea"><i class="fas fa-calendar-check"></i> Tiệc cưới</a>
-    <a href="#rsvpArea"><i class="fas fa-envelope-open-text"></i> RSVP</a>
-    <a href="#wishesArea"><i class="fas fa-comment-heart"></i> Lời chúc</a>
-    <a href="#giftArea"><i class="fas fa-gift"></i> Mừng cưới</a>
-  </nav>
-
-  <main class="wedding-container">
-
-    <section class="hero-view" id="heroView">
-      <div class="hero-arch-frame reveal-item active shimmer-gold">
-        <svg class="chuhy-icon" viewBox="0 0 100 100">
-          <rect x="25" y="10" width="10" height="80" fill="var(--accent-gold-light)"/>
-          <rect x="65" y="10" width="10" height="80" fill="var(--accent-gold-light)"/>
-          <rect x="15" y="20" width="30" height="6" fill="var(--accent-gold-light)"/>
-          <rect x="55" y="20" width="30" height="6" fill="var(--accent-gold-light)"/>
-          <rect x="15" y="42" width="30" height="6" fill="var(--accent-gold-light)"/>
-          <rect x="55" y="42" width="30" height="6" fill="var(--accent-gold-light)"/>
-          <rect x="15" y="62" width="30" height="6" fill="var(--accent-gold-light)"/>
-          <rect x="55" y="62" width="30" height="6" fill="var(--accent-gold-light)"/>
-          <rect x="10" y="84" width="40" height="6" fill="var(--accent-gold-light)"/>
-          <rect x="50" y="84" width="40" height="6" fill="var(--accent-gold-light)"/>
-        </svg>
-
-        <div class="hero-tagline">Save Our Date</div>
-
-        <div class="monogram-badge">Q & L</div>
-
-        <h1 class="hero-names-text">
-          Minh Quân
-          <span class="hero-ampersand-sign">&</span>
-          Khánh Linh
-        </h1>
-
-        <div style="font-size: 13px; letter-spacing: 2px; color: var(--accent-gold-light); margin-top: 10px; font-weight: 600;">
-          LỄ THÀNH HÔN
-        </div>
-
-        <div class="hero-date-pill">
-          24 . 10 . 2026
-        </div>
-
-        <div class="hero-lunar-txt">
-          (Thứ Bảy, ngày 14 tháng 09 năm Bính Ngọ - Âm Lịch)
-        </div>
-
-        <div class="scroll-down-hint">
-          <span>Khám phá thiệp</span>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-      </div>
-    </section>
-
-    <section class="letter-area">
-      <div class="sec-header reveal-item">
-        <span class="sec-script">Thư ngỏ</span>
-        <h2 class="sec-heading">Lời Kính Mời</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-        </div>
-      </div>
-
-      <div class="letter-paper-wrap reveal-item reveal-scale tilt-card shimmer-gold">
-        <p class="letter-content-text">
-          “Tình yêu đẹp nhất không phải là hai con người hoàn hảo tìm thấy nhau, mà là khi hai mảnh ghép không hoàn hảo học được cách yêu thương trọn vẹn những điều bình dị nhất.”
-          <br><br>
-          Sau những tháng ngày cùng sẻ chia thăng trầm, chúng mình hạnh phúc quyết định nắm tay nhau bước vào chặng đường hôn nhân trăm năm.
-          <br><br>
-          Sự hiện diện của quý người thân và bạn bè là niềm vinh hạnh, là món quà đong đầy ý nghĩa nhất đối với gia đình và hai đứa mình!
-        </p>
-        <div class="letter-signature-text">
-          Minh Quân & Khánh Linh
-        </div>
-
-        <svg class="botanical-sway-svg" viewBox="0 0 100 100">
-          <path d="M50 90 Q48 50 50 15 Q52 50 50 90" stroke="var(--accent-gold)" stroke-width="2" fill="none"/>
-          <path d="M50 30 Q35 20 30 35 Q45 40 50 30" fill="var(--accent-gold)" opacity="0.6"/>
-          <path d="M50 45 Q65 35 70 50 Q55 55 50 45" fill="var(--accent-gold)" opacity="0.6"/>
-          <path d="M50 60 Q30 55 25 70 Q45 75 50 60" fill="var(--accent-gold)" opacity="0.6"/>
-          <path d="M50 75 Q70 70 75 85 Q55 90 50 75" fill="var(--accent-gold)" opacity="0.6"/>
-        </svg>
-      </div>
-    </section>
-
-    <section class="couple-area" id="coupleArea">
-      <div class="sec-header reveal-item">
-        <span class="sec-script">Cặp đôi</span>
-        <h2 class="sec-heading">Cô Dâu & Chú Rể</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2Z"/></svg>
-        </div>
-      </div>
-
-      <div class="couple-stack">
-        <div class="profile-card reveal-item tilt-card">
-          <div class="profile-avatar-arch">
-            <i class="fas fa-user-tie"></i>
-            <span class="profile-avatar-label">The Groom</span>
-          </div>
-          <div class="profile-role-title">Chú rể</div>
-          <h3 class="profile-fullname">Nguyễn Minh Quân</h3>
-          <div class="profile-lineage">
-            Trưởng nam của:<br>
-            <strong>Ông Nguyễn Văn Hùng</strong> & <strong>Bà Trần Thị Mai</strong><br>
-            <span style="color: var(--accent-gold-dark); font-weight: 600;">Đại diện: Nhà Trai (Hà Nội)</span>
-          </div>
-          <div class="profile-socials">
-            <a href="tel:0912345678" class="social-round-btn" title="Gọi điện"><i class="fas fa-phone-alt"></i></a>
-            <a href="https://zalo.me" target="_blank" class="social-round-btn" title="Nhắn tin Zalo"><i class="fas fa-comment-dots"></i></a>
-          </div>
-        </div>
-
-        <div class="profile-card reveal-item delay-1 tilt-card">
-          <div class="profile-avatar-arch">
-            <i class="fas fa-female"></i>
-            <span class="profile-avatar-label">The Bride</span>
-          </div>
-          <div class="profile-role-title">Cô dâu</div>
-          <h3 class="profile-fullname">Lê Khánh Linh</h3>
-          <div class="profile-lineage">
-            Ái nữ của:<br>
-            <strong>Ông Lê Hoàng Nam</strong> & <strong>Bà Phạm Thu Hương</strong><br>
-            <span style="color: var(--accent-gold-dark); font-weight: 600;">Đại diện: Nhà Gái (TP. Hồ Chí Minh)</span>
-          </div>
-          <div class="profile-socials">
-            <a href="tel:0987654321" class="social-round-btn" title="Gọi điện"><i class="fas fa-phone-alt"></i></a>
-            <a href="https://zalo.me" target="_blank" class="social-round-btn" title="Nhắn tin Zalo"><i class="fas fa-comment-dots"></i></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="countdown-area">
-      <div class="sec-header reveal-item" style="margin-bottom: 10px;">
-        <span class="sec-script">Thời khắc thiêng liêng</span>
-        <h2 class="sec-heading">Cùng Đếm Ngược</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.5 7H11V13L16.2 16.2L17 14.9L12.5 12.2V7Z"/></svg>
-        </div>
-      </div>
-
-      <div class="timer-flex-row reveal-item reveal-scale">
-        <div class="timer-item-box">
-          <span class="timer-big-num" id="daysVal">00</span>
-          <span class="timer-caption-txt">Ngày</span>
-        </div>
-        <div class="timer-item-box">
-          <span class="timer-big-num" id="hoursVal">00</span>
-          <span class="timer-caption-txt">Giờ</span>
-        </div>
-        <div class="timer-item-box">
-          <span class="timer-big-num" id="minutesVal">00</span>
-          <span class="timer-caption-txt">Phút</span>
-        </div>
-        <div class="timer-item-box">
-          <span class="timer-big-num" id="secondsVal">00</span>
-          <span class="timer-caption-txt">Giây</span>
-        </div>
-      </div>
-
-      <div class="blessing-cannon-box reveal-item delay-1">
-        <div class="blessing-count-txt">
-          Đã có <strong id="blessingCounter">2,458</strong> lượt tim chúc phúc cho đôi uyên ương!
-        </div>
-        <button class="btn-fireworks-cannon" onclick="triggerFireworksBlessing(event)">
-          <i class="fas fa-heart"></i> Bắn Pháo Hoa Chúc Phúc
-        </button>
-      </div>
-
-      <div style="margin-top: 20px;">
-        <button class="btn-act btn-act-border" style="color: var(--accent-gold-light); display: inline-flex;" onclick="downloadIcsFile()">
-          <i class="far fa-calendar-plus"></i> Lưu ngày vào lịch điện thoại
-        </button>
-      </div>
-    </section>
-
-    <section class="events-area" id="eventsArea">
-      <div class="sec-header reveal-item">
-        <span class="sec-script">Thời gian & Địa điểm</span>
-        <h2 class="sec-heading">Sự Kiện Trọng Đại</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z"/></svg>
-        </div>
-      </div>
-
-      <div class="event-card-item reveal-item tilt-card">
-        <span class="event-badge-pill">Nhà Gái</span>
-        <h3 class="event-card-title">LỄ VU QUY</h3>
-        
-        <div class="event-info-line">
-          <i class="far fa-clock"></i>
-          <div><strong>09:00</strong> — Thứ Bảy, 24/10/2026</div>
-        </div>
-        <div class="event-info-line">
-          <i class="far fa-calendar-alt"></i>
-          <div>Nhằm ngày 14 tháng 09 năm Bính Ngọ (ÂL)</div>
-        </div>
-
-        <div class="event-address-quote">
-          <i class="fas fa-map-marker-alt" style="color: var(--accent-gold); margin-right: 6px;"></i>
-          <strong>Tư Gia Nhà Gái:</strong> Số 88 Phố Huế, P. Hàng Bài, Q. Hai Bà Trưng, TP. Hà Nội
-        </div>
-
-        <div class="event-btn-row">
-          <a href="https://maps.google.com/?q=88+Phố+Huế+Hà+Nội" target="_blank" class="btn-act btn-act-red">
-            <i class="fas fa-location-arrow"></i> Chỉ đường Maps
-          </a>
-          <button class="btn-act btn-act-border" onclick="alert('LỄ VU QUY\\nThời gian: 09:00 - Thứ Bảy, 24/10/2026\\nĐịa điểm: 88 Phố Huế, Hai Bà Trưng, Hà Nội')">
-            <i class="far fa-eye"></i> Xem chi tiết
-          </button>
-        </div>
-      </div>
-
-      <div class="event-card-item reveal-item delay-1 tilt-card">
-        <span class="event-badge-pill">Nhà Trai</span>
-        <h3 class="event-card-title">LỄ THÀNH HÔN & TIỆC CƯỚI</h3>
-        
-        <div class="event-info-line">
-          <i class="far fa-clock"></i>
-          <div><strong>11:30</strong> — Thứ Bảy, 24/10/2026</div>
-        </div>
-        <div class="event-info-line">
-          <i class="far fa-calendar-alt"></i>
-          <div>Nhằm ngày 14 tháng 09 năm Bính Ngọ (ÂL)</div>
-        </div>
-
-        <div class="event-address-quote">
-          <i class="fas fa-hotel" style="color: var(--accent-gold); margin-right: 6px;"></i>
-          <strong>Trống Đồng Palace:</strong> Sảnh Diamond, 72 Trần Đăng Ninh, Q. Cầu Giấy, TP. Hà Nội
-        </div>
-
-        <div class="event-btn-row">
-          <a href="https://maps.google.com/?q=Trống+Đồng+Palace+72+Trần+Đăng+Ninh+Hà+Nội" target="_blank" class="btn-act btn-act-red">
-            <i class="fas fa-location-arrow"></i> Chỉ đường Maps
-          </a>
-          <button class="btn-act btn-act-border" onclick="alert('LỄ THÀNH HÔN & TIỆC CƯỚI\\nThời gian: 11:30 - Thứ Bảy, 24/10/2026\\nĐịa điểm: Trống Đồng Palace, 72 Trần Đăng Ninh, Cầu Giấy, Hà Nội')">
-            <i class="far fa-eye"></i> Xem chi tiết
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="timeline-area">
-      <div class="sec-header reveal-item">
-        <span class="sec-script">Chương trình</span>
-        <h2 class="sec-heading">Lịch Trình Hôn Lễ</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-        </div>
-      </div>
-
-      <div class="timeline-road-wrap">
-        <div class="timeline-node reveal-item">
-          <div class="timeline-node-pin"><i class="fas fa-camera-retro"></i></div>
-          <div class="timeline-node-time">10:30</div>
-          <div class="timeline-node-card">Đón tiếp quan khách, check-in và chụp ảnh lưu niệm cùng Cô dâu - Chú rể</div>
-        </div>
-
-        <div class="timeline-node reveal-item delay-1">
-          <div class="timeline-node-pin"><i class="fas fa-ring"></i></div>
-          <div class="timeline-node-time">11:15</div>
-          <div class="timeline-node-card">Nghi thức thành hôn trang trọng: Trao nhẫn hẹn ước, cắt bánh hạnh phúc và rót rượu champagne</div>
-        </div>
-
-        <div class="timeline-node reveal-item delay-2">
-          <div class="timeline-node-pin"><i class="fas fa-glass-cheers"></i></div>
-          <div class="timeline-node-time">11:45</div>
-          <div class="timeline-node-card">Khai tiệc thân mật & cùng quý quan khách nâng ly chúc phúc trăm năm hòa hợp</div>
-        </div>
-
-        <div class="timeline-node reveal-item delay-3">
-          <div class="timeline-node-pin"><i class="fas fa-heart"></i></div>
-          <div class="timeline-node-time">12:30</div>
-          <div class="timeline-node-card">Giao lưu âm nhạc, minigame nhận quà may mắn & tiễn khách lưu luyến</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="story-area">
-      <div class="sec-header reveal-item">
-        <span class="sec-script">Hành trình</span>
-        <h2 class="sec-heading">Chuyện Tình Yêu</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-        </div>
-      </div>
-
-      <div class="story-item-box reveal-item">
-        <div class="story-item-date">15 . 03 . 2022</div>
-        <h4 class="story-item-name">Chạm Mặt Lần Đầu</h4>
-        <p class="story-item-body">Một buổi chiều mưa rào bất chợt ở quán cà phê quen, ánh mắt vô tình chạm nhau bắt đầu cho mối lương duyên diệu kỳ.</p>
-      </div>
-
-      <div class="story-item-box reveal-item delay-1">
-        <div class="story-item-date">20 . 10 . 2022</div>
-        <h4 class="story-item-name">Lời Tỏ Tình Ngọt Ngào</h4>
-        <p class="story-item-body">Dưới ánh đèn vàng lấp lánh bên bờ hồ lộng gió, hai bàn tay khẽ nắm lấy nhau, chính thức mở ra trang tình yêu son sắt.</p>
-      </div>
-
-      <div class="story-item-box reveal-item delay-2">
-        <div class="story-item-date">14 . 02 . 2026</div>
-        <h4 class="story-item-name">Khoảnh Khắc Cầu Hôn</h4>
-        <p class="story-item-body">Giữa đồi thông ngập tràn sắc hoa và ánh hoàng hôn Đà Lạt, lời thì thầm "Làm vợ anh nhé!" nhận được cái gật đầu trong niềm hạnh phúc ngập tràn.</p>
-      </div>
-
-      <div class="story-item-box reveal-item delay-3">
-        <div class="story-item-date">24 . 10 . 2026</div>
-        <h4 class="story-item-name">Ngày Về Chung Đôi</h4>
-        <p class="story-item-body">Hành trình yêu khép lại những chuỗi ngày hẹn hò để mở ra một chương mới: Một mái ấm, một gia đình và một đời yêu thương.</p>
-      </div>
-    </section>
-
-    <section class="gallery-area">
-      <div class="sec-header reveal-item">
-        <span class="sec-script">Thông điệp</span>
-        <h2 class="sec-heading">Ngôn Ngữ Tình Yêu</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2Z"/></svg>
-        </div>
-      </div>
-
-      <div class="polaroid-grid-layout">
-        <div class="polaroid-aesthetic-card reveal-item tilt-card">
-          <div class="polaroid-paper-box">
-            <i class="fas fa-infinity"></i>
-            <div class="polaroid-quote-text">"Together is our favorite place to be."</div>
-          </div>
-          <div class="polaroid-caption-tag">Vĩnh Cửu</div>
-        </div>
-
-        <div class="polaroid-aesthetic-card reveal-item delay-1 tilt-card">
-          <div class="polaroid-paper-box">
-            <i class="fas fa-feather-alt"></i>
-            <div class="polaroid-quote-text">"You are my today and all of my tomorrows."</div>
-          </div>
-          <div class="polaroid-caption-tag">Hẹn Ước</div>
-        </div>
-
-        <div class="polaroid-aesthetic-card reveal-item delay-2 tilt-card">
-          <div class="polaroid-paper-box">
-            <i class="fas fa-hands-holding-circle"></i>
-            <div class="polaroid-quote-text">"Hạnh phúc là khi cùng nhau già đi mỗi ngày."</div>
-          </div>
-          <div class="polaroid-caption-tag">Gắn Kết</div>
-        </div>
-
-        <div class="polaroid-aesthetic-card reveal-item delay-3 tilt-card">
-          <div class="polaroid-paper-box">
-            <i class="fas fa-seedling"></i>
-            <div class="polaroid-quote-text">"Mỗi ngày yêu em nhiều hơn ngày hôm qua."</div>
-          </div>
-          <div class="polaroid-caption-tag">Bình Yên</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="rsvp-area" id="rsvpArea">
-      <div class="sec-header reveal-item">
-        <span class="sec-script">Phản hồi</span>
-        <h2 class="sec-heading">Xác Nhận Tham Dự</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg>
-        </div>
-      </div>
-
-      <div class="rsvp-form-container reveal-item tilt-card">
-        <form id="weddingForm" onsubmit="handleWeddingRsvp(event)">
-          <div class="form-row-item">
-            <label for="guestFullname">Họ và tên của quý khách *</label>
-            <input type="text" id="guestFullname" class="input-field-custom" placeholder="Ví dụ: Trần Hoàng Long" required>
-          </div>
-
-          <div class="form-row-item">
-            <label for="guestPhoneNum">Số điện thoại liên hệ</label>
-            <input type="tel" id="guestPhoneNum" class="input-field-custom" placeholder="Ví dụ: 0912 345 678">
-          </div>
-
-          <div class="form-row-item">
-            <label>Quý khách là khách mời của:</label>
-            <select id="guestSideChoice" class="input-field-custom">
-              <option value="Nhà Trai">Khách nhà Trai (Chú rể Minh Quân)</option>
-              <option value="Nhà Gái">Khách nhà Gái (Cô dâu Khánh Linh)</option>
-              <option value="Bạn Chung">Bạn bè chung của hai đứa</option>
-            </select>
-          </div>
-
-          <div class="form-row-item">
-            <label>Quý khách có thể tham dự chứ?</label>
-            <div class="radio-choice-list">
-              <label class="radio-choice-option">
-                <input type="radio" name="attendRadio" value="Chắc chắn tham dự" checked>
-                <span>Chắc chắn sẽ đến chung vui</span>
-              </label>
-              <label class="radio-choice-option">
-                <input type="radio" name="attendRadio" value="Rất tiếc không thể đến">
-                <span>Rất tiếc vì bận công việc không thể đến</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="form-row-item">
-            <label for="guestAmount">Số lượng người tham dự:</label>
-            <select id="guestAmount" class="input-field-custom">
-              <option value="1">1 người</option>
-              <option value="2">2 người</option>
-              <option value="3">Đi cùng gia đình (3+)</option>
-            </select>
-          </div>
-
-          <div class="form-row-item">
-            <label for="guestWishesText">Lời nhắn gửi đến dâu rể:</label>
-            <textarea id="guestWishesText" class="input-field-custom" rows="3" placeholder="Gửi gắm lời chúc tốt đẹp nhất..."></textarea>
-          </div>
-
-          <button type="submit" class="btn-submit-wedding-rsvp">
-            <i class="fas fa-paper-plane" style="margin-right: 6px;"></i> Gửi Lời Xác Nhận
-          </button>
-        </form>
-      </div>
-    </section>
-
-    <section class="wishes-area" id="wishesArea">
-      <div class="sec-header reveal-item">
-        <span class="sec-script">Lưu bút</span>
-        <h2 class="sec-heading">Sổ Lưu Bút Kỷ Niệm</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z"/></svg>
-        </div>
-      </div>
-
-      <div class="wishes-stream-container" id="wishesStream">
-        <div class="wish-entry-card reveal-item">
-          <div class="wish-entry-header">
-            <span class="wish-entry-author">囍 Anh Hoàng & Chị Mai</span>
-            <span class="wish-entry-time">2 phút trước</span>
-          </div>
-          <div class="wish-entry-body">Chúc hai em bước vào hôn nhân luôn yêu thương, nhường nhịn và đồng hành cùng nhau trên mọi nẻo đường! Chúc gia đình nhỏ luôn tràn ngập tiếng cười! 🎉</div>
-          <button class="wish-heart-trigger" onclick="popHeartReaction(event)" title="Thả tim"><i class="fas fa-heart"></i></button>
-        </div>
-
-        <div class="wish-entry-card reveal-item delay-1">
-          <div class="wish-entry-header">
-            <span class="wish-entry-author">💍 Team Bạn Thân Đại Học</span>
-            <span class="wish-entry-time">25 phút trước</span>
-          </div>
-          <div class="wish-entry-body">Mừng ngày chàng trai ấm áp nhất team rước nàng về dinh! Chúc cô dâu chú rể trăm năm hạnh phúc, vạn sự cát lành! ✨</div>
-          <button class="wish-heart-trigger" onclick="popHeartReaction(event)" title="Thả tim"><i class="fas fa-heart"></i></button>
-        </div>
-
-        <div class="wish-entry-card reveal-item delay-2">
-          <div class="wish-entry-header">
-            <span class="wish-entry-author">🌹 Thảo My (Bạn Thân Cô Dâu)</span>
-            <span class="wish-entry-time">1 giờ trước</span>
-          </div>
-          <div class="wish-entry-body">Tone thiệp đỏ đậm siêu sang trọng và lãng mạn luôn Linh ơi! Nhất định ngày cưới tớ sẽ có mặt thật sớm để chung vui cùng cậu nhé! ❤️</div>
-          <button class="wish-heart-trigger" onclick="popHeartReaction(event)" title="Thả tim"><i class="fas fa-heart"></i></button>
-        </div>
-      </div>
-
-      <div class="rsvp-form-container reveal-item" style="padding: 22px;">
-        <h4 style="font-family: var(--font-serif); color: var(--primary-red); margin-bottom: 12px; font-size: 15px;">
-          Gửi lời chúc & dán tem kỷ niệm:
-        </h4>
-
-        <div class="stamp-selector-box">
-          <span class="stamp-selector-label">Chọn con tem kỷ niệm của bạn:</span>
-          <div class="stamps-flex">
-            <div class="stamp-pill selected" onclick="selectStamp(this, '囍')">
-              <span class="stamp-pill-icon">囍</span>
-              <span class="stamp-pill-name">Chữ Hỷ</span>
-            </div>
-            <div class="stamp-pill" onclick="selectStamp(this, '💍')">
-              <span class="stamp-pill-icon">💍</span>
-              <span class="stamp-pill-name">Nhẫn Cưới</span>
-            </div>
-            <div class="stamp-pill" onclick="selectStamp(this, '🌹')">
-              <span class="stamp-pill-icon">🌹</span>
-              <span class="stamp-pill-name">Hoa Hồng</span>
-            </div>
-            <div class="stamp-pill" onclick="selectStamp(this, '🕊️')">
-              <span class="stamp-pill-icon">🕊️</span>
-              <span class="stamp-pill-name">Bồ Câu</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-row-item" style="margin-bottom: 10px;">
-          <input type="text" id="guestWishAuthor" class="input-field-custom" placeholder="Tên hoặc biệt danh của bạn">
-        </div>
-        <div class="form-row-item" style="margin-bottom: 12px;">
-          <textarea id="guestWishMessage" class="input-field-custom" rows="2" placeholder="Viết lời chúc ngọt ngào nhất..."></textarea>
-        </div>
-        <button class="btn-act btn-act-red" style="width: 100%; padding: 12px;" onclick="publishGuestWish(event)">
-          <i class="fas fa-stamp"></i> Đóng Dấu & Gửi Lời Chúc
-        </button>
-      </div>
-    </section>
-
-    <section class="gift-area" id="giftArea">
-      <div class="sec-header reveal-item">
-        <span class="sec-script">Mừng cưới</span>
-        <h2 class="sec-heading">Hộp Mừng Cưới Từ Xa</h2>
-        <div class="sec-divider">
-          <svg viewBox="0 0 24 24"><path d="M20 6H16.82C17.26 5.16 17.5 4.19 17.5 3.25C17.5 1.46 16.04 0 14.25 0C13.06 0 12.03 0.65 11.5 1.62C10.97 0.65 9.94 0 8.75 0C6.96 0 5.5 1.46 5.5 3.25C5.5 4.19 5.74 5.16 6.18 6H3C1.35 6 0 7.35 0 9V11C0 11.55 0.45 12 1 12H2V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V12H23C23.55 12 24 11.55 24 11V9C24 7.35 22.65 6 20 6ZM14.25 2C14.94 2 15.5 2.56 15.5 3.25C15.5 3.94 14.94 4.5 14.25 4.5H12V3.25C12 2.56 12.56 2 13.25 2H14.25ZM8.75 2C9.44 2 10 2.56 10 3.25V4.5H7.75C7.06 4.5 6.5 3.94 6.5 3.25C6.5 2.56 7.06 2 7.75 2H8.75ZM4 20V12H10V20H4ZM20 20H14V12H20V20ZM22 10H2V9C2 8.45 2.45 8 3 8H20C20.55 8 21 8.45 21 9V10H22Z"/></svg>
-        </div>
-      </div>
-
-      <div class="pill-tabs-bar reveal-item">
-        <button class="pill-tab-item active" id="btnTabGroom" onclick="toggleGiftCard('groom')">Mừng Chú Rể</button>
-        <button class="pill-tab-item" id="btnTabBride" onclick="toggleGiftCard('bride')">Mừng Cô Dâu</button>
-      </div>
-
-      <div class="bank-envelope-panel active tilt-card" id="cardGroom">
-        <div class="vietqr-box">
-          <svg viewBox="0 0 120 120">
-            <rect width="120" height="120" fill="#fff"/>
-            <rect x="10" y="10" width="30" height="30" fill="#500f18"/>
-            <rect x="15" y="15" width="20" height="20" fill="#fff"/>
-            <rect x="20" y="20" width="10" height="10" fill="#500f18"/>
-
-            <rect x="80" y="10" width="30" height="30" fill="#500f18"/>
-            <rect x="85" y="15" width="20" height="20" fill="#fff"/>
-            <rect x="90" y="20" width="10" height="10" fill="#500f18"/>
-
-            <rect x="10" y="80" width="30" height="30" fill="#500f18"/>
-            <rect x="15" y="85" width="20" height="20" fill="#fff"/>
-            <rect x="20" y="90" width="10" height="10" fill="#500f18"/>
-
-            <rect x="50" y="12" width="8" height="8" fill="#500f18"/>
-            <rect x="65" y="16" width="8" height="8" fill="#500f18"/>
-            <rect x="52" y="32" width="8" height="8" fill="#500f18"/>
-            <rect x="15" y="55" width="8" height="8" fill="#500f18"/>
-            <rect x="32" y="52" width="8" height="8" fill="#500f18"/>
-            <rect x="75" y="52" width="8" height="8" fill="#500f18"/>
-            <rect x="95" y="58" width="8" height="8" fill="#500f18"/>
-            <rect x="52" y="78" width="8" height="8" fill="#500f18"/>
-            <rect x="68" y="75" width="8" height="8" fill="#500f18"/>
-            <rect x="88" y="85" width="10" height="10" fill="#500f18"/>
-            <rect x="78" y="98" width="8" height="8" fill="#500f18"/>
-            <rect x="98" y="96" width="8" height="8" fill="#500f18"/>
-
-            <circle cx="60" cy="60" r="14" fill="#c5a059"/>
-            <circle cx="60" cy="60" r="11" fill="#fff"/>
-            <path d="M60 66l-1.1-1C55 61.5 52 58.8 52 55.5c0-2.5 2-4.5 4.5-4.5 1.4 0 2.8.6 3.5 1.7.7-1.1 2.1-1.7 3.5-1.7 2.5 0 4.5 2 4.5 4.5 0 3.3-3 6-6.9 9.5L60 66z" fill="#500f18"/>
+    <div class="story-tap-zone tap-zone-left" id="tapZoneLeft" title="Trang trước"></div>
+    <div class="story-tap-zone tap-zone-right" id="tapZoneRight" title="Trang tiếp theo"></div>
+
+    <div class="stories-slider" id="storiesSlider">
+
+      <!-- SLIDE 1: COVER HERO -->
+      <section class="story-slide slide-cover">
+        <div class="cover-arch gold-shimmer">
+          <svg class="chuhy-svg" viewBox="0 0 100 100">
+            <rect x="25" y="10" width="10" height="80" fill="var(--accent-gold-light)"/>
+            <rect x="65" y="10" width="10" height="80" fill="var(--accent-gold-light)"/>
+            <rect x="15" y="20" width="30" height="6" fill="var(--accent-gold-light)"/>
+            <rect x="55" y="20" width="30" height="6" fill="var(--accent-gold-light)"/>
+            <rect x="15" y="42" width="30" height="6" fill="var(--accent-gold-light)"/>
+            <rect x="55" y="42" width="30" height="6" fill="var(--accent-gold-light)"/>
+            <rect x="15" y="62" width="30" height="6" fill="var(--accent-gold-light)"/>
+            <rect x="55" y="62" width="30" height="6" fill="var(--accent-gold-light)"/>
+            <rect x="10" y="84" width="40" height="6" fill="var(--accent-gold-light)"/>
+            <rect x="50" y="84" width="40" height="6" fill="var(--accent-gold-light)"/>
           </svg>
+
+          <div class="cover-tagline">Save Our Special Date</div>
+
+          <div class="cover-monogram">H & ?</div>
+
+          <h1 class="cover-names">
+            Phi Hồng
+            <span class="cover-amp">&</span>
+            Nàng Thơ
+          </h1>
+
+          <div style="font-size: 12px; letter-spacing: 2px; color: var(--accent-gold-light); margin-top: 8px; font-weight: 600;">
+            LỄ THÀNH HÔN
+          </div>
+
+          <div class="cover-date-ribbon">
+            25:00 • 32 . 13 . 3000
+          </div>
+
+          <div class="cover-lunar">
+            (Ngày hoàng đạo vô cực • Đông Triều, Quảng Ninh)
+          </div>
+
+          <div style="margin-top: 22px; font-size: 11px; letter-spacing: 1px; color: var(--accent-gold-light); opacity: 0.85;">
+            <i class="fas fa-hand-pointer" style="margin-right: 4px;"></i> Chạm phải để xem tiếp
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: LỜI NGỎ / THƯ MỜI -->
+      <section class="story-slide slide-letter">
+        <div class="letter-box-inner gold-shimmer">
+          <span class="slide-heading-script">Thư ngỏ</span>
+          <h2 class="slide-heading-serif">Lời Kính Mời</h2>
+
+          <p class="letter-quote-content">
+            “Hạnh phúc lớn nhất của đời người là tìm được một người để cùng nhau chia sẻ mọi khoảnh khắc bình dị nhất.”
+            <br><br>
+            Cảm ơn quý người thân và bạn bè đã luôn đồng hành, dõi theo từng bước trưởng thành của Hồng.
+            <br><br>
+            Sự hiện diện và lời chúc phúc của quý khách là niềm vinh hạnh to lớn nhất đối với gia đình chúng tôi!
+          </p>
+
+          <div class="letter-sig-author">
+            Nguyễn Phi Hồng
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: CHÚ RỂ & NÀNG THƠ TƯƠNG LAI -->
+      <section class="story-slide slide-couple">
+        <div class="couple-card-flex">
+          <div class="person-mini-card">
+            <div class="groom-avatar-arch">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="person-label-tag">Chú rể</div>
+            <h3 class="person-real-name">Nguyễn Phi Hồng</h3>
+            <div class="person-sub-info">
+              Con của: <strong>Ông Nguyễn Thanh Tùng</strong> & <strong>Bà Lê Thị Thúy</strong><br>
+              <span style="color: var(--accent-gold-dark); font-weight: 600;">Đại diện: Nhà Trai (Quảng Ninh)</span>
+            </div>
+            <a href="tel:0967361810" class="btn-quick-call">
+              <i class="fas fa-phone-alt"></i> 0967.361.810
+            </a>
+          </div>
+
+          <div class="bride-loading-box">
+            <div class="bride-mystery-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <div class="person-label-tag" style="color: var(--primary-red);">Cô dâu tương lai</div>
+            <h4 style="font-family: var(--font-serif); font-size: 16px; color: var(--primary-red); margin: 3px 0;">
+              Nàng Thơ Bí Mật
+            </h4>
+            <div style="font-size: 11.5px; color: var(--text-muted); font-style: italic;">
+              (Đang tải dữ liệu tình duyên... 99% ✨)<br>
+              "Sẽ cập nhật dung nhan khi Hồng tìm thấy nàng!"
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: SỰ KIỆN CƯỚI & ĐỊA ĐIỂM -->
+      <section class="story-slide slide-events">
+        <div class="event-item-block">
+          <span class="event-badge-label">Nhà Trai</span>
+          <h3 class="event-block-heading">LỄ THÀNH HÔN & TIỆC CƯỚI</h3>
+          
+          <div class="event-line-row">
+            <i class="far fa-clock"></i>
+            <span><strong>25:00</strong> — Ngày 32 tháng 13 năm 3000</span>
+          </div>
+
+          <div class="event-line-row">
+            <i class="fas fa-home"></i>
+            <span><strong>Địa điểm:</strong> Nhà riêng</span>
+          </div>
+
+          <div class="event-line-row">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Số 03, P. Đức Chính, TX. Đông Triều, Tỉnh Quảng Ninh</span>
+          </div>
+
+          <div class="event-btn-pair">
+            <a href="https://maps.google.com/?q=Đức+Chính+Đông+Triều+Quảng+Ninh" target="_blank" class="btn-card-action btn-act-fill">
+              <i class="fas fa-location-arrow"></i> Chỉ đường Maps
+            </a>
+            <button class="btn-card-action btn-act-line" onclick="notifyToast('Địa chỉ: Số 03, Đức Chính, Đông Triều, Quảng Ninh')">
+              <i class="far fa-eye"></i> Chi tiết
+            </button>
+          </div>
         </div>
 
-        <div class="bank-data-row">
-          <span class="bank-data-label">Ngân hàng: </span>
-          <span class="bank-data-value">MB BANK (Quân Đội)</span>
+        <div class="event-item-block" style="border-top-color: var(--accent-gold); opacity: 0.95;">
+          <span class="event-badge-label" style="color: var(--accent-gold-dark);">Nhà Gái</span>
+          <h3 class="event-block-heading" style="color: var(--accent-gold-dark);">LỄ VU QUY</h3>
+          <div class="event-line-row">
+            <i class="far fa-clock"></i>
+            <span><strong>25:00</strong> — Ngày 32 tháng 13 năm 3000</span>
+          </div>
+          <div class="event-line-row">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Nhà số 03, Thị xã Đức Chính, Đông Triều, Quảng Ninh</span>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted); font-style: italic; margin-top: 6px;">
+            * Đón khách chung vui cùng hai bên gia đình
+          </div>
         </div>
-        <div class="bank-data-row">
-          <span class="bank-data-label">Số tài khoản: </span>
-          <span class="bank-data-value">0987654321001</span>
+      </section>
+
+      <!-- SLIDE 5: RSVP & GỬI LỜI CHÚC -->
+      <section class="story-slide slide-rsvp">
+        <div class="rsvp-card-box">
+          <span class="slide-heading-script">Xác nhận</span>
+          <h3 class="slide-heading-serif" style="margin-bottom: 12px;">Tham Dự & Chúc Phúc</h3>
+
+          <form id="rsvpStoryForm" onsubmit="submitStoryRsvp(event)">
+            <div class="form-group-item">
+              <label for="rsvpGuestName">Tên của bạn *</label>
+              <input type="text" id="rsvpGuestName" class="input-stylish-field" placeholder="Ví dụ: Anh Tuấn / Bạn Thân" required>
+            </div>
+
+            <div class="form-group-item">
+              <label for="rsvpGuestPhone">Số điện thoại</label>
+              <input type="tel" id="rsvpGuestPhone" class="input-stylish-field" placeholder="0912 xxx xxx">
+            </div>
+
+            <div class="form-group-item">
+              <label for="rsvpWishMsg">Lời chúc gửi tới chú rể Phi Hồng:</label>
+              <textarea id="rsvpWishMsg" class="input-stylish-field" rows="2" placeholder="Chúc bạn sớm cưới được vợ hiền..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-guest">
+              <i class="fas fa-heart" style="margin-right: 6px;"></i> Gửi Lời Chúc Phúc
+            </button>
+          </form>
         </div>
-        <div class="bank-data-row">
-          <span class="bank-data-label">Chủ tài khoản: </span>
-          <span class="bank-data-value">NGUYEN MINH QUAN</span>
+      </section>
+
+      <!-- SLIDE 6: HỘP MỪNG CƯỚI (QR BIDV PHI HỒNG) -->
+      <section class="story-slide slide-gift">
+        <div class="gift-card-wrap gold-shimmer">
+          <span class="slide-heading-script">Hộp mừng</span>
+          <h3 class="slide-heading-serif" style="margin-bottom: 12px;">Mừng Cưới Chú Rể</h3>
+
+          <div class="qr-image-container">
+            <img src="https://img.vietqr.io/image/BIDV-4270516950-compact2.png?amount=0&addInfo=Mung%20cuoi%20Phi%20Hong&accountName=NGUYEN%20PHI%20HONG" alt="Mã VietQR BIDV Nguyen Phi Hong" loading="lazy">
+          </div>
+
+          <div class="bank-info-line">
+            <span>Ngân hàng:</span> <strong>BIDV</strong>
+          </div>
+          <div class="bank-info-line">
+            <span>Số tài khoản:</span> <strong id="bidvAccountNum">4270516950</strong>
+          </div>
+          <div class="bank-info-line">
+            <span>Chủ tài khoản:</span> <strong>NGUYEN PHI HONG</strong>
+          </div>
+
+          <button class="btn-copy-stk-pill" onclick="copyBidvStk()">
+            <i class="far fa-copy"></i> Sao chép số tài khoản
+          </button>
         </div>
+      </section>
 
-        <button class="btn-copy-stk-pill" onclick="copyBankAccount('0987654321001', 'Đã sao chép STK Chú Rể!')">
-          <i class="far fa-copy"></i> Sao chép số tài khoản
-        </button>
-      </div>
+    </div>
 
-      <div class="bank-envelope-panel tilt-card" id="cardBride">
-        <div class="vietqr-box">
-          <svg viewBox="0 0 120 120">
-            <rect width="120" height="120" fill="#fff"/>
-            <rect x="10" y="10" width="30" height="30" fill="#500f18"/>
-            <rect x="15" y="15" width="20" height="20" fill="#fff"/>
-            <rect x="20" y="20" width="10" height="10" fill="#500f18"/>
-
-            <rect x="80" y="10" width="30" height="30" fill="#500f18"/>
-            <rect x="85" y="15" width="20" height="20" fill="#fff"/>
-            <rect x="90" y="20" width="10" height="10" fill="#500f18"/>
-
-            <rect x="10" y="80" width="30" height="30" fill="#500f18"/>
-            <rect x="15" y="85" width="20" height="20" fill="#fff"/>
-            <rect x="20" y="90" width="10" height="10" fill="#500f18"/>
-
-            <rect x="52" y="16" width="10" height="10" fill="#500f18"/>
-            <rect x="66" y="24" width="8" height="8" fill="#500f18"/>
-            <rect x="54" y="38" width="8" height="8" fill="#500f18"/>
-            <rect x="22" y="55" width="8" height="8" fill="#500f18"/>
-            <rect x="36" y="58" width="8" height="8" fill="#500f18"/>
-            <rect x="76" y="54" width="8" height="8" fill="#500f18"/>
-            <rect x="98" y="52" width="8" height="8" fill="#500f18"/>
-            <rect x="54" y="82" width="8" height="8" fill="#500f18"/>
-            <rect x="70" y="78" width="8" height="8" fill="#500f18"/>
-            <rect x="90" y="88" width="10" height="10" fill="#500f18"/>
-            <rect x="80" y="100" width="8" height="8" fill="#500f18"/>
-
-            <circle cx="60" cy="60" r="14" fill="#c5a059"/>
-            <circle cx="60" cy="60" r="11" fill="#fff"/>
-            <path d="M60 66l-1.1-1C55 61.5 52 58.8 52 55.5c0-2.5 2-4.5 4.5-4.5 1.4 0 2.8.6 3.5 1.7.7-1.1 2.1-1.7 3.5-1.7 2.5 0 4.5 2 4.5 4.5 0 3.3-3 6-6.9 9.5L60 66z" fill="#500f18"/>
-          </svg>
-        </div>
-
-        <div class="bank-data-row">
-          <span class="bank-data-label">Ngân hàng: </span>
-          <span class="bank-data-value">VIETCOMBANK (Ngoại Thương)</span>
-        </div>
-        <div class="bank-data-row">
-          <span class="bank-data-label">Số tài khoản: </span>
-          <span class="bank-data-value">1029384756</span>
-        </div>
-        <div class="bank-data-row">
-          <span class="bank-data-label">Chủ tài khoản: </span>
-          <span class="bank-data-value">LE KHANH LINH</span>
-        </div>
-
-        <button class="btn-copy-stk-pill" onclick="copyBankAccount('1029384756', 'Đã sao chép STK Cô Dâu!')">
-          <i class="far fa-copy"></i> Sao chép số tài khoản
-        </button>
-      </div>
-    </section>
-
-    <footer class="thankyou-area">
-      <div class="thankyou-script-big reveal-item">Thank You!</div>
-      <p class="thankyou-verse reveal-item delay-1">
-        Cảm ơn bạn đã luôn là một phần thật đẹp trong thanh xuân của chúng mình, và đã dành thời gian sẻ chia niềm vui trong ngày trọng đại nhất cuộc đời!
-      </p>
-      <div class="footer-stamp-names reveal-item delay-2">
-        MINH QUÂN & KHÁNH LINH
-      </div>
-      <div class="footer-copy-note">
-        Minimalism Đỏ Đậm • Thiết kế thiệp cưới online cao cấp 2026
-      </div>
-    </footer>
+    <!-- Bottom 1-Touch Navigation Dock -->
+    <nav class="story-bottom-dock">
+      <button class="dock-tab-btn active" onclick="jumpToStory(0)"><i class="fas fa-home"></i> Bìa</button>
+      <button class="dock-tab-btn" onclick="jumpToStory(1)"><i class="fas fa-envelope-open"></i> Thư ngỏ</button>
+      <button class="dock-tab-btn" onclick="jumpToStory(2)"><i class="fas fa-user-friends"></i> Dâu Rể</button>
+      <button class="dock-tab-btn" onclick="jumpToStory(3)"><i class="fas fa-calendar-check"></i> Tiệc cưới</button>
+      <button class="dock-tab-btn" onclick="jumpToStory(4)"><i class="fas fa-heart"></i> RSVP</button>
+      <button class="dock-tab-btn" onclick="jumpToStory(5)"><i class="fas fa-gift"></i> Mừng cưới</button>
+    </nav>
 
   </main>
 
-  <div class="toast-pill-notification" id="toastPill">
+  <div class="toast-alert" id="toastBox">
     <i class="fas fa-check-circle" style="color: var(--accent-gold);"></i>
-    <span id="toastPillText">Thông báo</span>
+    <span id="toastMsgText">Thông báo</span>
   </div>
 
-  <audio id="weddingRealSong" preload="auto" loop>
+  <audio id="realWeddingMusic" preload="auto" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=wedding-piano-112347.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const pCanvas = document.getElementById('petalsCanvas');
-    const pCtx = pCanvas.getContext('2d');
-    let pWidth = pCanvas.width = window.innerWidth;
-    let pHeight = pCanvas.height = window.innerHeight;
+    const canvas = document.getElementById('petalsCanvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
 
     window.addEventListener('resize', () => {
-      pWidth = pCanvas.width = window.innerWidth;
-      pHeight = pCanvas.height = window.innerHeight;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     });
 
-    const particlesList = [];
-    const NUM_PARTICLES = 36;
-
-    class FloatingItem {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * pWidth;
-        this.y = Math.random() * -pHeight;
-        this.size = Math.random() * 8 + 4;
-        this.speedY = Math.random() * 1.4 + 0.8;
-        this.speedX = Math.random() * 1.2 - 0.6;
-        this.angle = Math.random() * 360;
-        this.spin = Math.random() * 2 - 1;
-        this.isPetal = Math.random() > 0.45;
-        this.alpha = Math.random() * 0.55 + 0.35;
-      }
-      update() {
-        this.y += this.speedY;
-        this.x += Math.sin(this.y * 0.01) * 0.8 + this.speedX;
-        this.angle += this.spin;
-        if (this.y > pHeight + 20) {
-          this.reset();
-          this.y = -10;
-        }
-      }
-      draw() {
-        pCtx.save();
-        pCtx.translate(this.x, this.y);
-        pCtx.rotate((this.angle * Math.PI) / 180);
-        pCtx.globalAlpha = this.alpha;
-
-        if (this.isPetal) {
-          pCtx.fillStyle = '#8a1d2d';
-          pCtx.beginPath();
-          pCtx.ellipse(0, 0, this.size * 0.6, this.size, 0, 0, Math.PI * 2);
-          pCtx.fill();
-        } else {
-          pCtx.fillStyle = '#c5a059';
-          pCtx.beginPath();
-          pCtx.arc(0, 0, this.size * 0.35, 0, Math.PI * 2);
-          pCtx.fill();
-        }
-        pCtx.restore();
-      }
-    }
-
-    for (let i = 0; i < NUM_PARTICLES; i++) {
-      particlesList.push(new FloatingItem());
-    }
-
-    function runParticleAnimation() {
-      pCtx.clearRect(0, 0, pWidth, pHeight);
-      particlesList.forEach(p => {
-        p.update();
-        p.draw();
+    const particles = [];
+    for (let i = 0; i < 30; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * -height,
+        size: Math.random() * 8 + 4,
+        speedY: Math.random() * 1.3 + 0.8,
+        speedX: Math.random() * 1 - 0.5,
+        angle: Math.random() * 360,
+        spin: Math.random() * 2 - 1,
+        isPetal: Math.random() > 0.45
       });
-      requestAnimationFrame(runParticleAnimation);
     }
-    runParticleAnimation();
 
-    let audioActive = false;
-    let audioContext = null;
-    let synthLoopTimer = null;
-    const realSongAudio = document.getElementById('weddingRealSong');
-    const audioWidget = document.getElementById('audioToggleWidget');
-    const vinylIcon = document.getElementById('vinylIcon');
+    function renderPetals() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.y += p.speedY;
+        p.x += Math.sin(p.y * 0.01) * 0.8 + p.speedX;
+        p.angle += p.spin;
+        if (p.y > height + 20) {
+          p.y = -10;
+          p.x = Math.random() * width;
+        }
 
-    function startSynthBackup() {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.angle * Math.PI) / 180);
+        ctx.globalAlpha = 0.6;
+
+        if (p.isPetal) {
+          ctx.fillStyle = '#8a1d2d';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.size * 0.6, p.size, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = '#c5a059';
+          ctx.beginPath();
+          ctx.arc(0, 0, p.size * 0.35, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      });
+      requestAnimationFrame(renderPetals);
+    }
+    renderPetals();
+
+    const totalStories = 6;
+    let currentStory = 0;
+    let autoReelEnabled = false;
+    let storyTimer = null;
+    const STORY_DURATION = 6500;
+    let storyStartTime = 0;
+
+    const slider = document.getElementById('storiesSlider');
+    const dockButtons = document.querySelectorAll('.dock-tab-btn');
+    const progressFills = document.querySelectorAll('.progress-fill');
+
+    function updateStoryUI() {
+      slider.style.transform = `translateX(-${currentStory * 100}%)`;
+
+      dockButtons.forEach((btn, idx) => {
+        if (idx === currentStory) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+
+      progressFills.forEach((fill, idx) => {
+        if (idx < currentStory) {
+          fill.style.width = '100%';
+        } else if (idx === currentStory) {
+          fill.style.width = '0%';
+        } else {
+          fill.style.width = '0%';
+        }
+      });
+
+      if (autoReelEnabled) {
+        startProgressAnimation();
+      }
+    }
+
+    function jumpToStory(index) {
+      if (index < 0) index = 0;
+      if (index >= totalStories) index = totalStories - 1;
+      currentStory = index;
+      resetAutoStoryTimer();
+      updateStoryUI();
+    }
+
+    function nextStory() {
+      if (currentStory < totalStories - 1) {
+        jumpToStory(currentStory + 1);
+      } else {
+        jumpToStory(0);
+      }
+    }
+
+    function prevStory() {
+      if (currentStory > 0) {
+        jumpToStory(currentStory - 1);
+      }
+    }
+
+    document.getElementById('tapZoneRight').addEventListener('click', () => nextStory());
+    document.getElementById('tapZoneLeft').addEventListener('click', () => prevStory());
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    document.querySelector('.story-app').addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.querySelector('.story-app').addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextStory();
+      if (touchEndX - touchStartX > 50) prevStory();
+    }, { passive: true });
+
+    let animFrameId = null;
+
+    function startProgressAnimation() {
+      storyStartTime = Date.now();
+      cancelAnimationFrame(animFrameId);
+
+      function step() {
+        if (!autoReelEnabled) return;
+        const elapsed = Date.now() - storyStartTime;
+        const progress = Math.min((elapsed / STORY_DURATION) * 100, 100);
+
+        if (progressFills[currentStory]) {
+          progressFills[currentStory].style.width = `${progress}%`;
+        }
+
+        if (elapsed >= STORY_DURATION) {
+          nextStory();
+        } else {
+          animFrameId = requestAnimationFrame(step);
+        }
+      }
+      animFrameId = requestAnimationFrame(step);
+    }
+
+    function resetAutoStoryTimer() {
+      cancelAnimationFrame(animFrameId);
+      if (autoReelEnabled) {
+        startProgressAnimation();
+      }
+    }
+
+    const autoReelBtn = document.getElementById('autoReelToggleBtn');
+    const autoReelIcon = document.getElementById('autoReelIcon');
+
+    autoReelBtn.addEventListener('click', () => {
+      autoReelEnabled = !autoReelEnabled;
+      if (autoReelEnabled) {
+        autoReelIcon.className = "fas fa-pause";
+        notifyToast("Đã bật tự động chuyển cảnh (Reel Mode)");
+        startProgressAnimation();
+      } else {
+        autoReelIcon.className = "fas fa-play";
+        notifyToast("Đã dừng tự động chuyển cảnh");
+        cancelAnimationFrame(animFrameId);
+        if (progressFills[currentStory]) {
+          progressFills[currentStory].style.width = '100%';
+        }
+      }
+    });
+
+    const realAudio = document.getElementById('realWeddingMusic');
+    const musicBtn = document.getElementById('musicToggleBtn');
+    let isMusicActive = false;
+    let webAudioContext = null;
+    let synthTimer = null;
+
+    function runSynthFallback() {
       try {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!audioContext) audioContext = new AudioCtx();
-        if (audioContext.state === 'suspended') audioContext.resume();
+        if (!webAudioContext) webAudioContext = new AudioCtx();
+        if (webAudioContext.state === 'suspended') webAudioContext.resume();
 
         const chords = [
           [293.66, 369.99, 440.00, 587.33],
@@ -2377,82 +1460,76 @@
         ];
         let idx = 0;
 
-        function playSoftNote(freq, delay) {
-          if (!audioActive || !audioContext) return;
+        function playSoftTone(freq, delay) {
+          if (!isMusicActive || !webAudioContext) return;
           setTimeout(() => {
-            if (!audioActive) return;
-            const osc = audioContext.createOscillator();
-            const gain = audioContext.createGain();
+            if (!isMusicActive) return;
+            const osc = webAudioContext.createOscillator();
+            const gain = webAudioContext.createGain();
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+            osc.frequency.setValueAtTime(freq, webAudioContext.currentTime);
 
-            gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.06, audioContext.currentTime + 0.15);
-            gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 2.8);
+            gain.gain.setValueAtTime(0.0001, webAudioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.06, webAudioContext.currentTime + 0.15);
+            gain.gain.exponentialRampToValueAtTime(0.0001, webAudioContext.currentTime + 2.8);
 
             osc.connect(gain);
-            gain.connect(audioContext.destination);
+            gain.connect(webAudioContext.destination);
             osc.start();
-            osc.stop(audioContext.currentTime + 2.8);
+            osc.stop(webAudioContext.currentTime + 2.8);
           }, delay);
         }
 
-        synthLoopTimer = setInterval(() => {
-          if (!audioActive) return;
+        synthTimer = setInterval(() => {
+          if (!isMusicActive) return;
           const current = chords[idx % chords.length];
-          current.forEach((freq, i) => playSoftNote(freq, i * 360));
+          current.forEach((freq, i) => playSoftTone(freq, i * 360));
           idx++;
         }, 3600);
-
       } catch (err) {
-        console.warn("Audio Context fallback error", err);
+        console.warn("Synth fallback error", err);
       }
     }
 
-    function playSong() {
-      audioActive = true;
-      audioWidget.classList.remove('paused');
-      vinylIcon.classList.remove('paused');
-      document.getElementById('currentSongLabel').textContent = "Until I Found You";
-
-      realSongAudio.volume = 0.6;
-      const playPromise = realSongAudio.play();
+    function startMusic() {
+      isMusicActive = true;
+      musicBtn.classList.add('active-music');
+      realAudio.volume = 0.6;
+      const playPromise = realAudio.play();
       if (playPromise !== undefined) {
         playPromise.catch(err => {
-          console.log("MP3 autoplay restricted or network offline, triggering soft synth chord backup.");
-          startSynthBackup();
+          console.log("Playback fallback triggered");
+          runSynthFallback();
         });
       }
     }
 
-    function pauseSong() {
-      audioActive = false;
-      audioWidget.classList.add('paused');
-      vinylIcon.classList.add('paused');
-      document.getElementById('currentSongLabel').textContent = "Đã Tắt Nhạc";
-      realSongAudio.pause();
-      if (synthLoopTimer) clearInterval(synthLoopTimer);
-      if (audioContext && audioContext.state === 'running') {
-        audioContext.suspend();
+    function stopMusic() {
+      isMusicActive = false;
+      musicBtn.classList.remove('active-music');
+      realAudio.pause();
+      if (synthTimer) clearInterval(synthTimer);
+      if (webAudioContext && webAudioContext.state === 'running') {
+        webAudioContext.suspend();
       }
     }
 
-    audioWidget.addEventListener('click', () => {
-      if (audioActive) {
-        pauseSong();
+    musicBtn.addEventListener('click', () => {
+      if (isMusicActive) {
+        stopMusic();
         notifyToast("Đã tắt nhạc nền");
       } else {
-        playSong();
-        notifyToast("Đang phát: Until I Found You (Romantic Piano)");
+        startMusic();
+        notifyToast("Đang phát nhạc cưới lãng mạn");
       }
     });
 
-    const waxSeal = document.getElementById('waxSealTrigger');
-    const envelopeStage = document.getElementById('envelopeStage');
+    const waxSeal = document.getElementById('waxSealBtn');
+    const overlay = document.getElementById('envelopeOverlay');
 
     waxSeal.addEventListener('click', () => {
-      playSong();
-      envelopeStage.classList.add('opening');
+      startMusic();
+      overlay.classList.add('unfolding');
 
       if (typeof confetti === 'function') {
         confetti({
@@ -2464,245 +1541,61 @@
       }
 
       setTimeout(() => {
-        envelopeStage.classList.add('stage-opened');
-        notifyToast("Chào mừng bạn đến với thiệp cưới của Minh Quân & Khánh Linh!");
+        overlay.classList.add('opened');
+        notifyToast("Chào mừng bạn đến với thiệp cưới của Phi Hồng!");
+        
+        autoReelEnabled = true;
+        autoReelIcon.className = "fas fa-pause";
+        startProgressAnimation();
       }, 950);
     });
 
-    const revealItems = document.querySelectorAll('.reveal-item');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, {
-      threshold: 0.12,
-      rootMargin: "0px 0px -40px 0px"
-    });
-
-    revealItems.forEach(item => observer.observe(item));
-
-    const tiltCards = document.querySelectorAll('.tilt-card');
-    tiltCards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        const rotX = -(y / rect.height) * 8;
-        const rotY = (x / rect.width) * 8;
-        card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
-      });
-    });
-
-    function runCountdown() {
-      const weddingDate = new Date('2026-10-24T10:30:00+07:00').getTime();
-      const now = new Date().getTime();
-      const diff = weddingDate - now;
-
-      if (diff > 0) {
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById('daysVal').textContent = String(days).padStart(2, '0');
-        document.getElementById('hoursVal').textContent = String(hours).padStart(2, '0');
-        document.getElementById('minutesVal').textContent = String(minutes).padStart(2, '0');
-        document.getElementById('secondsVal').textContent = String(seconds).padStart(2, '0');
-      } else {
-        document.getElementById('daysVal').textContent = '00';
-        document.getElementById('hoursVal').textContent = '00';
-        document.getElementById('minutesVal').textContent = '00';
-        document.getElementById('secondsVal').textContent = '00';
-      }
-    }
-    setInterval(runCountdown, 1000);
-    runCountdown();
-
-    let blessingTotal = 2458;
-    function triggerFireworksBlessing(e) {
-      blessingTotal += 1;
-      document.getElementById('blessingCounter').textContent = blessingTotal.toLocaleString('en-US');
-
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 50,
-          spread: 70,
-          origin: {
-            x: e.clientX ? e.clientX / window.innerWidth : 0.5,
-            y: e.clientY ? e.clientY / window.innerHeight : 0.6
-          },
-          colors: ['#c5a059', '#e6d3a8', '#ff4d6d', '#8a1d2d']
-        });
-      }
-
-      spawnFlyingHeart(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight * 0.6);
-      notifyToast("Cảm ơn lời chúc phúc rực rỡ của bạn! ✨");
-    }
-
-    function notifyToast(msg) {
-      const toast = document.getElementById('toastPill');
-      document.getElementById('toastPillText').textContent = msg;
-      toast.classList.add('show');
+    function notifyToast(text) {
+      const box = document.getElementById('toastBox');
+      document.getElementById('toastMsgText').textContent = text;
+      box.classList.add('show');
       setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2600);
+        box.classList.remove('show');
+      }, 2500);
     }
 
-    function spawnFlyingHeart(x, y) {
-      const heart = document.createElement('div');
-      heart.className = 'floating-reaction-heart';
-      heart.innerHTML = '❤️';
-      heart.style.left = `${x}px`;
-      heart.style.top = `${y}px`;
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 1600);
-    }
-
-    function popHeartReaction(e) {
-      spawnFlyingHeart(e.clientX, e.clientY);
-      notifyToast("Đã thả tim yêu thương!");
-    }
-
-    let currentSelectedStamp = '囍';
-
-    function selectStamp(el, symbol) {
-      document.querySelectorAll('.stamp-pill').forEach(pill => pill.classList.remove('selected'));
-      el.classList.add('selected');
-      currentSelectedStamp = symbol;
-    }
-
-    function publishGuestWish(e) {
-      e.preventDefault();
-      const author = document.getElementById('guestWishAuthor').value.trim();
-      const message = document.getElementById('guestWishMessage').value.trim();
-
-      if (!author || !message) {
-        notifyToast("Vui lòng nhập tên và lời chúc nhé!");
-        return;
-      }
-
-      const stream = document.getElementById('wishesStream');
-      const card = document.createElement('div');
-      card.className = 'wish-entry-card';
-      card.innerHTML = `
-        <div class="wish-entry-header">
-          <span class="wish-entry-author">${currentSelectedStamp} ${escapeHtml(author)}</span>
-          <span class="wish-entry-time">Vừa xong</span>
-        </div>
-        <div class="wish-entry-body">${escapeHtml(message)}</div>
-        <button class="wish-heart-trigger" onclick="popHeartReaction(event)" title="Thả tim"><i class="fas fa-heart"></i></button>
-      `;
-
-      stream.insertBefore(card, stream.firstChild);
-      document.getElementById('guestWishAuthor').value = '';
-      document.getElementById('guestWishMessage').value = '';
-      notifyToast("Đã đóng dấu tem & gửi lời chúc thành công!");
-
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 40,
-          spread: 60,
-          origin: { y: 0.8 },
-          colors: ['#c5a059', '#8a1d2d', '#ffffff']
-        });
-      }
-    }
-
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>"'`=\\/]/g, s => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;'
-      })[s]);
-    }
-
-    function toggleGiftCard(side) {
-      const btnG = document.getElementById('btnTabGroom');
-      const btnB = document.getElementById('btnTabBride');
-      const cardG = document.getElementById('cardGroom');
-      const cardB = document.getElementById('cardBride');
-
-      if (side === 'groom') {
-        btnG.classList.add('active');
-        btnB.classList.remove('active');
-        cardG.classList.add('active');
-        cardB.classList.remove('active');
-      } else {
-        btnG.classList.remove('active');
-        btnB.classList.add('active');
-        cardG.classList.remove('active');
-        cardB.classList.add('active');
-      }
-    }
-
-    function copyBankAccount(accNumber, message) {
+    function copyBidvStk() {
+      const stk = '4270516950';
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(accNumber).then(() => {
-          notifyToast(message);
-        }).catch(() => {
-          legacyCopy(accNumber, message);
-        });
+        navigator.clipboard.writeText(stk).then(() => {
+          notifyToast("Đã sao chép STK BIDV: 4270516950!");
+        }).catch(() => fallbackCopy(stk));
       } else {
-        legacyCopy(accNumber, message);
+        fallbackCopy(stk);
       }
     }
 
-    function legacyCopy(val, msg) {
+    function fallbackCopy(text) {
       const input = document.createElement("input");
-      input.value = val;
+      input.value = text;
       document.body.appendChild(input);
       input.select();
       document.execCommand("copy");
       document.body.removeChild(input);
-      notifyToast(msg);
+      notifyToast("Đã sao chép STK BIDV: " + text);
     }
 
-    function handleWeddingRsvp(e) {
+    function submitStoryRsvp(e) {
       e.preventDefault();
-      const name = document.getElementById('guestFullname').value.trim();
-      notifyToast(`Cảm ơn ${name}! Chúng mình đã nhận được xác nhận.`);
-      document.getElementById('weddingForm').reset();
+      const name = document.getElementById('rsvpGuestName').value.trim();
+      notifyToast(`Cảm ơn ${name}! Phi Hồng đã nhận được lời chúc.`);
+      document.getElementById('rsvpStoryForm').reset();
 
       if (typeof confetti === 'function') {
         confetti({
-          particleCount: 70,
+          particleCount: 60,
           spread: 70,
           origin: { y: 0.7 }
         });
       }
     }
 
-    function downloadIcsFile() {
-      const ics = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Minimalism Wedding Invitation//VI",
-        "BEGIN:VEVENT",
-        "SUMMARY:Đám Cưới Minh Quân & Khánh Linh",
-        "LOCATION:Trống Đồng Palace, 72 Trần Đăng Ninh, Cầu Giấy, Hà Nội",
-        "DESCRIPTION:Trân trọng kính mời quý khách tham dự lễ thành hôn của Minh Quân & Khánh Linh!",
-        "DTSTART:20261024T043000Z",
-        "DTEND:20261024T073000Z",
-        "END:VEVENT",
-        "END:VCALENDAR"
-      ].join("\\r\\n");
-
-      const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = "dam-cuoi-minh-quan-khanh-linh.ics";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      notifyToast("Đã tải tệp lịch (.ics) thành công!");
-    }
+    updateStoryUI();
   </script>
 </body>
 </html>
