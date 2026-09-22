@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#2c070d">
-  <title>Thiệp cưới Nguyễn Phi Hồng & Nàng Thơ</title>
+  <title>Thiệp cưới Nguyễn Phi Hồng</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -473,6 +473,27 @@
       .family-grid{grid-template-columns:1fr}
       .action-row{grid-template-columns:1fr}
     }
+    .opening-name-mystery{height:50px;min-width:180px;display:flex;align-items:center;justify-content:center;margin-left:auto;margin-right:auto}
+    .opening-name-mystery span{display:block;width:155px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);position:relative}
+    .opening-name-mystery span::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;border:1px solid var(--gold);transform:translate(-50%,-50%) rotate(45deg);background:#321016}
+    .prank-note{margin:18px auto 0;padding:10px 12px;border:1px dashed rgba(153,33,49,.28);border-radius:12px;color:#7b5960;font-size:11px;line-height:1.5;background:#fffaf5}
+    .prank-note i{color:var(--wine);margin-right:5px}
+    .status-searching{display:inline-flex;align-items:center;gap:7px;color:var(--wine);margin-bottom:6px}
+    .status-searching i{font-size:11px;animation:searchPulse 1.8s ease-in-out infinite}
+    @keyframes searchPulse{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(7px);opacity:1}}
+    .event-datebox-pending strong{font-size:17px;letter-spacing:.08em;line-height:1.1}
+    .mini-timeline{display:grid;gap:12px;margin-top:4px}
+    .mini-timeline>div{display:grid;grid-template-columns:72px 1fr;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed rgba(117,84,72,.18);text-align:left}
+    .mini-timeline>div:last-child{border-bottom:0}
+    .mini-timeline strong{font-family:var(--serif);color:var(--wine);font-size:14px}
+    .mini-timeline span{font-size:12px;color:var(--muted)}
+    .prank-gift-card{padding-top:28px}
+    .prank-gift-icon{width:72px;height:72px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;background:var(--soft);border:1px solid rgba(199,162,95,.45);color:var(--wine);font-size:25px}
+    .gift-prank-copy{font-family:var(--serif);font-size:17px;color:var(--text);margin:8px 0 16px}
+    .future-gift-message{max-height:0;overflow:hidden;opacity:0;transform:translateY(-4px);transition:.35s ease;font-size:11.5px;color:var(--muted)}
+    .future-gift-message.show{max-height:60px;opacity:1;transform:none;margin-top:12px}
+    .gift-serious{transition:opacity .35s ease,transform .35s ease,max-height .45s ease;max-height:420px;overflow:hidden}
+
     @media (prefers-reduced-motion:reduce){
       html{scroll-behavior:auto}
       *,*::before,*::after{animation:none!important;transition:none!important}
@@ -487,11 +508,9 @@
     <div class="opening-flash"></div>
     <div class="opening-burst-layer" id="openingBurstLayer"></div>
     <div class="opening-card">
-      <div class="opening-kicker">The Wedding Invitation</div>
+      <div class="opening-kicker">Save The Date</div>
       <h2 class="opening-name">Nguyễn Phi Hồng</h2>
-      <div class="opening-and">&</div>
-      <h2 class="opening-name">Nàng Thơ</h2>
-      <div class="opening-date">25:00 • 32 . 13 . 2088</div>
+      <div class="opening-date">THE WEDDING INVITATION</div>
       <button class="seal-btn" id="openInvitation" type="button" aria-label="Mở thiệp cưới">
         <i class="fa-solid fa-heart"></i>
         <span>Mở thiệp</span>
@@ -504,11 +523,11 @@
 
   <main class="site-shell" id="home">
     <section class="hero" data-nav="home">
-      <div class="hero-media"><img src="assets/couple.webp" alt="Khoảnh khắc cô dâu chú rể" fetchpriority="high"></div>
+      <div class="hero-media"><img src="assets/couple.webp" alt="Khoảnh khắc trong lễ cưới" fetchpriority="high"></div>
       <div class="hero-copy">
-        <div class="hero-kicker">Save our special date</div>
-        <h1>Phi Hồng <em>&</em> Nàng Thơ</h1>
-        <div class="hero-date">25:00 • 32 . 13 . 2088</div>
+        <div class="hero-kicker">The Wedding Invitation</div>
+        <h1>Phi Hồng</h1>
+        <div class="hero-date">SAVE THE DATE</div>
         <div class="hero-location">Đông Triều • Quảng Ninh</div>
         <div class="hero-scroll"><i class="fa-solid fa-chevron-down"></i> Cuộn xuống để xem thiệp</div>
       </div>
@@ -518,20 +537,20 @@
       <div class="section-inner reveal">
         <div class="eyebrow">Trân trọng kính mời</div>
         <h2 class="script-title">Thư ngỏ</h2>
-        <div class="serif-title">Ngày vui của chúng mình</div>
+        <div class="serif-title">Một lời hẹn cho ngày đặc biệt</div>
         <div class="invitation-card">
-          <p class="big-quote">“Hạnh phúc lớn nhất của đời người là tìm được một người để cùng nhau chia sẻ mọi khoảnh khắc bình dị nhất.”</p>
-          <p class="invite-body">Cảm ơn quý người thân và bạn bè đã luôn đồng hành, dõi theo từng bước trưởng thành của Hồng.<br><br>Sự hiện diện và lời chúc phúc của quý khách là niềm vinh hạnh to lớn nhất đối với gia đình chúng tôi!</p>
+          <p class="big-quote">“Có những cột mốc chỉ thật sự trọn vẹn khi có những người mình quý mến ở bên.”</p>
+          <p class="invite-body">Hồng xin gửi tới gia đình và bạn bè một lời hẹn trước cho một ngày rất đặc biệt.<br><br>Thông tin chính thức về thời gian, địa điểm và lịch trình sẽ được gửi riêng trong thiệp hoàn chỉnh. Hy vọng khi ngày ấy đến, bạn vẫn sẽ dành một khoảng thời gian để cùng Hồng lưu lại một kỷ niệm thật đẹp.</p>
           <div class="signature">Nguyễn Phi Hồng</div>
         </div>
       </div>
     </section>
 
-    <section class="section section--wine" id="film" data-nav="film">
+    <section class="section section--wine" id="film" data-nav="home">
       <div class="section-inner reveal">
         <div class="eyebrow">Our Wedding Film</div>
-        <h2 class="script-title">Khoảnh khắc của chúng mình</h2>
-        <p class="section-lead">Một đoạn phim ngắn lưu lại những giây phút đẹp nhất trên lễ đường.</p>
+        <h2 class="script-title">Một chút về ngày ấy</h2>
+        <p class="section-lead">Một đoạn phim nhỏ dành cho một ngày rất đặc biệt.</p>
         <div class="film-card">
           <video id="weddingVideo" controls playsinline preload="metadata" poster="assets/frame-01.webp">
             <source src="assets/wedding.mp4" type="video/mp4">
@@ -539,8 +558,8 @@
           </video>
           <div class="film-caption">
             <div>
-              <strong>Our little forever</strong><br>
-              <span>Nhấn phát để xem video cưới của chúng mình</span>
+              <strong>Our Wedding Film</strong><br>
+              <span>Nhấn phát để xem một khoảnh khắc đặc biệt</span>
             </div>
             <div class="film-icon"><i class="fa-solid fa-play"></i></div>
           </div>
@@ -552,39 +571,39 @@
       <div class="section-inner reveal">
         <div class="eyebrow">Our Moments</div>
         <h2 class="script-title">Album kỷ niệm</h2>
-        <p class="section-lead">Toàn bộ ảnh bên dưới được lấy từ ảnh và video bạn gửi, không dùng ảnh người nước ngoài.</p>
+        <p class="section-lead">Một vài khung hình được giữ lại cho câu chuyện đặc biệt này.</p>
         <div class="gallery-grid">
           <figure class="gallery-item tall">
-            <img src="assets/couple.webp" alt="Cô dâu chú rể bên hoa cưới" loading="lazy">
-            <figcaption class="gallery-tag">Một đời bên nhau</figcaption>
+            <img src="assets/couple.webp" alt="Khoảnh khắc bên hoa cưới" loading="lazy">
+            <figcaption class="gallery-tag">Một ngày đáng nhớ</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="assets/frame-02.webp" alt="Khoảnh khắc trao nhẫn" loading="lazy">
-            <figcaption class="gallery-tag">Lời hẹn ước</figcaption>
+            <figcaption class="gallery-tag">Một lời hẹn</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="assets/frame-03.webp" alt="Khoảnh khắc trên lễ đường" loading="lazy">
-            <figcaption class="gallery-tag">Ánh mắt yêu thương</figcaption>
+            <figcaption class="gallery-tag">Khoảnh khắc bình yên</figcaption>
           </figure>
           <figure class="gallery-item wide">
-            <img src="assets/frame-04.webp" alt="Cô dâu chú rể nắm tay" loading="lazy">
-            <figcaption class="gallery-tag">Chung một lối về</figcaption>
+            <img src="assets/frame-04.webp" alt="Khoảnh khắc nắm tay" loading="lazy">
+            <figcaption class="gallery-tag">Chung một lối</figcaption>
           </figure>
         </div>
       </div>
     </section>
 
-    <section class="section section--soft" id="couple">
+    <section class="section section--soft" id="couple" data-nav="couple">
       <div class="section-inner reveal">
-        <div class="eyebrow">Bride & Groom</div>
-        <h2 class="script-title">Chúng mình</h2>
-        <p class="section-lead">Bỏ kiểu avatar stock cũ; dùng chính ảnh cưới của bạn để cảm giác thật và đồng nhất hơn.</p>
+        <div class="eyebrow">Wedding Note</div>
+        <h2 class="script-title">Thông tin thiệp</h2>
+        <p class="section-lead">Đây là bản Save The Date được gửi trước để những người thân quen cùng lưu lại lời hẹn.</p>
         <div class="portrait-card">
           <div class="portrait-img">
-            <img src="assets/couple.webp" alt="Nguyễn Phi Hồng và Nàng Thơ" loading="lazy">
+            <img src="assets/couple.webp" alt="Khoảnh khắc trong không gian lễ cưới" loading="lazy">
             <div class="portrait-name">
-              <small>Chú rể & cô dâu</small>
-              <strong>Nguyễn Phi Hồng & Nàng Thơ</strong>
+              <small>The Wedding</small>
+              <strong>Nguyễn Phi Hồng</strong>
             </div>
           </div>
           <div class="family-grid">
@@ -593,11 +612,11 @@
               <p>Ông <strong>Nguyễn Thanh Tùng</strong><br>& Bà <strong>Lê Thị Thúy</strong><br>Đông Triều, Quảng Ninh</p>
             </div>
             <div class="family-box">
-              <span>Cô dâu</span>
-              <p>“Bóng hình dịu dàng bước vào cuộc đời, viết tiếp câu chuyện trăm năm viên mãn.”</p>
+              <span>Thiệp chính thức</span>
+              <p>Thông tin hai bên gia đình, thời gian, địa điểm và lịch trình sẽ được hiển thị đầy đủ trên bản thiệp chính thức.</p>
             </div>
           </div>
-          <div class="family-note">Forever & Always — Tình yêu bất tận & Hẹn ước trọn đời</div>
+          <div class="family-note">Một số nội dung được giữ riêng trong phiên bản Save The Date.</div>
         </div>
       </div>
     </section>
@@ -606,37 +625,38 @@
       <div class="section-inner reveal">
         <div class="eyebrow">Wedding Day</div>
         <h2 class="script-title">Hẹn gặp bạn</h2>
-        <p class="section-lead">Mong bạn dành thời gian đến chung vui và lưu lại những khoảnh khắc thật đẹp cùng hai gia đình.</p>
+        <p class="section-lead">Thông tin chi tiết sẽ được cập nhật ngay khi thiệp chính thức được phát hành.</p>
         <div class="events">
           <article class="event-card">
             <div class="event-head">
               <div>
-                <span class="event-badge">Nhà trai</span>
+                <span class="event-badge">Dự kiến</span>
                 <h3>Lễ thành hôn & tiệc cưới</h3>
               </div>
-              <div class="event-datebox"><strong>32</strong><span>Tháng 13</span></div>
+              <div class="event-datebox event-datebox-pending"><strong>SOON</strong><span>Save the date</span></div>
             </div>
             <div class="event-meta">
-              <div class="event-line"><i class="fa-regular fa-clock"></i><div><strong>25:00</strong> — Ngày 32 tháng 13 năm 2088</div></div>
-              <div class="event-line"><i class="fa-solid fa-house"></i><div><strong>Nhà riêng</strong><br>Số 03, P. Đức Chính, TX. Đông Triều, Tỉnh Quảng Ninh</div></div>
+              <div class="event-line"><i class="fa-regular fa-clock"></i><div><strong>Thời gian:</strong> Sẽ được gửi trong thiệp chính thức</div></div>
+              <div class="event-line"><i class="fa-solid fa-location-dot"></i><div><strong>Địa điểm:</strong> Sẽ được gửi trong thiệp chính thức</div></div>
+              <div class="event-line"><i class="fa-solid fa-shirt"></i><div><strong>Dress code:</strong> Mang theo một lời chúc thật đẹp</div></div>
             </div>
             <div class="action-row">
-              <a class="btn btn-primary" href="https://maps.google.com/?q=Đức+Chính+Đông+Triều+Quảng+Ninh" target="_blank" rel="noopener"><i class="fa-solid fa-location-arrow"></i> Chỉ đường</a>
-              <button class="btn btn-outline" type="button" onclick="showToast('Địa chỉ: Số 03, Đức Chính, Đông Triều, Quảng Ninh')"><i class="fa-regular fa-eye"></i> Xem địa chỉ</button>
+              <button class="btn btn-primary" type="button" onclick="showToast('Địa điểm sẽ được mở ngay khi thiệp chính thức được cập nhật.')"><i class="fa-solid fa-location-arrow"></i> Chỉ đường</button>
+              <button class="btn btn-outline" type="button" onclick="showToast('Hồng sẽ gửi lại thông báo khi ngày cưới chính thức được chốt.')"><i class="fa-regular fa-bell"></i> Nhắc tôi</button>
             </div>
           </article>
 
-          <article class="event-card">
+          <article class="event-card timeline-card">
             <div class="event-head">
               <div>
-                <span class="event-badge">Nhà gái</span>
-                <h3>Lễ vu quy</h3>
+                <span class="event-badge">Save The Date</span>
+                <h3>Nhận thiệp chính thức</h3>
               </div>
-              <div class="event-datebox"><strong>32</strong><span>Tháng 13</span></div>
             </div>
-            <div class="event-meta">
-              <div class="event-line"><i class="fa-regular fa-clock"></i><div><strong>25:00</strong> — Ngày 32 tháng 13 năm 2088</div></div>
-              <div class="event-line"><i class="fa-solid fa-location-dot"></i><div>Nhà số 03, Thị xã Đức Chính, Đông Triều, Quảng Ninh</div></div>
+            <div class="mini-timeline">
+              <div><strong>01</strong><span>Lưu lại đường dẫn thiệp này</span></div>
+              <div><strong>02</strong><span>Hồng sẽ cập nhật ngày giờ và địa điểm</span></div>
+              <div><strong>03</strong><span>Thiệp hoàn chỉnh sẽ được gửi riêng tới bạn</span></div>
             </div>
           </article>
         </div>
@@ -646,8 +666,8 @@
     <section class="section section--soft" id="rsvp" data-nav="rsvp">
       <div class="section-inner reveal">
         <div class="eyebrow">RSVP</div>
-        <h2 class="script-title">Bạn sẽ đến chứ?</h2>
-        <p class="section-lead">Một lời xác nhận nhỏ sẽ giúp gia đình chúng mình chuẩn bị chu đáo hơn.</p>
+        <h2 class="script-title">Nhận thiệp chính thức</h2>
+        <p class="section-lead">Để lại thông tin để Hồng gửi bản thiệp hoàn chỉnh khi ngày cưới được cập nhật.</p>
         <form class="form-card" id="rsvpForm">
           <div class="field">
             <label for="guestName">Tên của bạn *</label>
@@ -658,18 +678,18 @@
             <input id="guestPhone" type="tel" inputmode="tel" placeholder="0912 xxx xxx">
           </div>
           <div class="field">
-            <label for="attendance">Xác nhận tham dự</label>
+            <label for="attendance">Bạn muốn nhận thông báo thế nào?</label>
             <select id="attendance">
-              <option value="yes">Mình sẽ tham dự</option>
-              <option value="maybe">Mình sẽ phản hồi sớm</option>
-              <option value="no">Tiếc quá, mình không thể tham dự</option>
+              <option value="yes">Gửi cho tôi khi thiệp được cập nhật</option>
+              <option value="phone">Nhắc tôi qua số điện thoại</option>
+              <option value="later">Tôi sẽ xem lại sau</option>
             </select>
           </div>
           <div class="field">
-            <label for="wish">Lời chúc gửi tới hai bạn</label>
-            <textarea id="wish" placeholder="Gửi một lời chúc thật đẹp..."></textarea>
+            <label for="wish">Lời chúc gửi tới ngày vui</label>
+            <textarea id="wish" placeholder="Viết một lời chúc ngắn..."></textarea>
           </div>
-          <button class="submit-btn" type="submit"><i class="fa-solid fa-heart"></i> Gửi lời chúc phúc</button>
+          <button class="submit-btn" type="submit"><i class="fa-solid fa-heart"></i> Gửi lời nhắn</button>
         </form>
       </div>
     </section>
@@ -677,27 +697,26 @@
     <section class="section section--cream" id="gift" data-nav="gift">
       <div class="section-inner reveal">
         <div class="eyebrow">Wedding Gift</div>
-        <h2 class="script-title">Hộp mừng cưới</h2>
-        <p class="section-lead">Tình cảm và sự hiện diện của bạn đã là món quà quý giá. Nếu muốn gửi lời chúc theo cách khác, bạn có thể dùng thông tin dưới đây.</p>
+        <h2 class="script-title">Thông tin mừng cưới</h2>
+        <p class="section-lead">Phần này sẽ được cập nhật đồng thời với bản thiệp chính thức.</p>
         <div class="gift-card">
-          <div class="qr-frame"><img src="https://img.vietqr.io/image/BIDV-4270516950-compact2.png?amount=0&addInfo=Mung%20cuoi%20Phi%20Hong&accountName=NGUYEN%20PHI%20HONG" alt="Mã VietQR BIDV Nguyễn Phi Hồng" loading="lazy"></div>
-          <div class="bank-name">BIDV</div>
-          <div class="bank-row">Số tài khoản: <strong id="accountNumber">4270516950</strong></div>
-          <div class="bank-row">Chủ tài khoản: <strong>NGUYEN PHI HONG</strong></div>
-          <button class="copy-btn" type="button" id="copyAccount"><i class="fa-regular fa-copy"></i> Sao chép số tài khoản</button>
+          <div class="prank-gift-icon"><i class="fa-solid fa-lock"></i></div>
+          <div class="bank-name">Dành cho khách mời</div>
+          <div class="gift-prank-copy">Thông tin QR và tài khoản mừng cưới sẽ hiển thị khi ngày giờ, địa điểm và lịch trình được xác nhận đầy đủ.</div>
+          <button class="copy-btn" type="button" disabled style="opacity:.55;cursor:default"><i class="fa-regular fa-clock"></i> Sẽ cập nhật</button>
         </div>
       </div>
     </section>
 
     <footer class="footer">
       <div class="footer-mark">Thank you</div>
-      <p>Cảm ơn bạn đã là một phần trong ngày đặc biệt của chúng mình.</p>
+      <p id="footerText">Cảm ơn bạn đã xem tới cuối thiệp.<br><strong>Hẹn gặp bạn vào một ngày thật đẹp.</strong></p>
     </footer>
   </main>
 
   <nav class="bottom-nav" aria-label="Điều hướng thiệp">
     <a href="#home" data-target="home" class="active"><i class="fa-solid fa-house"></i><span>Trang đầu</span></a>
-    <a href="#film" data-target="film"><i class="fa-solid fa-film"></i><span>Video</span></a>
+    <a href="#couple" data-target="couple"><i class="fa-regular fa-note-sticky"></i><span>Thông tin</span></a>
     <a href="#event" data-target="event"><i class="fa-regular fa-calendar"></i><span>Tiệc cưới</span></a>
     <a href="#rsvp" data-target="rsvp"><i class="fa-regular fa-heart"></i><span>RSVP</span></a>
     <a href="#gift" data-target="gift"><i class="fa-solid fa-gift"></i><span>Mừng cưới</span></a>
@@ -790,7 +809,7 @@
         }, 900);
 
         setTimeout(function(){
-          showToast('Chào mừng bạn đến với thiệp cưới của Phi Hồng!');
+          showToast('Chào mừng bạn đến với Save The Date của Phi Hồng.');
         }, 1250);
       });
 
@@ -817,27 +836,10 @@
         toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2500);
       };
 
-      document.getElementById('copyAccount').addEventListener('click', function(){
-        var text = document.getElementById('accountNumber').textContent.trim();
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(function(){ showToast('Đã sao chép STK BIDV: ' + text); }).catch(function(){ fallbackCopy(text); });
-        } else fallbackCopy(text);
-      });
-
-      function fallbackCopy(text){
-        var input = document.createElement('input');
-        input.value = text;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-        showToast('Đã sao chép STK BIDV: ' + text);
-      }
-
       document.getElementById('rsvpForm').addEventListener('submit', function(e){
         e.preventDefault();
         var name = document.getElementById('guestName').value.trim();
-        showToast('Cảm ơn ' + name + '! Phi Hồng đã nhận được lời chúc.');
+        showToast('Đã ghi nhận, ' + name + '! Hồng sẽ gửi lại khi thiệp chính thức được cập nhật.');
         e.currentTarget.reset();
       });
 
