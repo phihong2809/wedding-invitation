@@ -331,12 +331,6 @@
     .invite-body{font-family:var(--serif);font-size:17px;line-height:1.7;color:#604d52;margin:20px 0 0}
     .signature{font-family:var(--script);font-size:34px;color:var(--wine);margin-top:18px}
 
-    .film-card{border-radius:26px;overflow:hidden;box-shadow:0 24px 55px rgba(24,3,7,.28);background:#160307;border:1px solid rgba(234,216,176,.28)}
-    .film-card video{width:100%;aspect-ratio:16/9;object-fit:cover;background:#130205}
-    .film-caption{padding:16px 18px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-    .film-caption strong{font-family:var(--serif);font-size:18px;font-weight:600}
-    .film-caption span{font-size:10px;color:rgba(255,255,255,.65);line-height:1.5}
-    .film-icon{width:42px;height:42px;border:1px solid rgba(199,162,95,.5);border-radius:50%;display:grid;place-items:center;color:var(--gold-soft);flex:0 0 auto}
 
     .gallery-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:9px}
     .gallery-item{border-radius:18px;overflow:hidden;position:relative;background:#eadfd5;min-height:165px}
@@ -546,26 +540,7 @@
       </div>
     </section>
 
-    <section class="section section--wine" id="film" data-nav="home">
-      <div class="section-inner reveal">
-        <div class="eyebrow">Our Wedding Film</div>
-        <h2 class="script-title">Một chút về ngày ấy</h2>
-        <p class="section-lead">Một đoạn phim nhỏ dành cho một ngày rất đặc biệt.</p>
-        <div class="film-card">
-          <video id="weddingVideo" controls playsinline preload="metadata" poster="assets/frame-01.webp">
-            <source src="assets/wedding.mp4" type="video/mp4">
-            Trình duyệt của bạn không hỗ trợ video HTML5.
-          </video>
-          <div class="film-caption">
-            <div>
-              <strong>Our Wedding Film</strong><br>
-              <span>Nhấn phát để xem một khoảnh khắc đặc biệt</span>
-            </div>
-            <div class="film-icon"><i class="fa-solid fa-play"></i></div>
-          </div>
-        </div>
-      </div>
-    </section>
+
 
     <section class="section section--cream" id="gallery">
       <div class="section-inner reveal">
@@ -734,8 +709,6 @@
       var openButton = document.getElementById('openInvitation');
       var music = document.getElementById('backgroundMusic');
       var musicButton = document.getElementById('musicButton');
-      var video = document.getElementById('weddingVideo');
-      var resumeMusicAfterVideo = false;
       var toastTimer = null;
       var isOpening = false;
       var openingParticles = document.getElementById('openingParticles');
@@ -815,17 +788,6 @@
 
       musicButton.addEventListener('click', function(){
         if (music.paused) startMusic(); else stopMusic();
-      });
-
-      video.addEventListener('play', function(){
-        resumeMusicAfterVideo = !music.paused;
-        if (resumeMusicAfterVideo) stopMusic();
-      });
-      video.addEventListener('pause', function(){
-        if (resumeMusicAfterVideo && !video.ended) startMusic();
-      });
-      video.addEventListener('ended', function(){
-        if (resumeMusicAfterVideo) startMusic();
       });
 
       window.showToast = function(message){
